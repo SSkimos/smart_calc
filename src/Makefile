@@ -22,4 +22,5 @@ test: s21_stack.a
 clean:
 	rm -rf *.o *.a test *.html *.css *.out *.gcda *.gcno test.dSYM
 	rm -f .clang-format
+	rm parser_logs.txt
 
