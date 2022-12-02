@@ -38,19 +38,33 @@ START_TEST(simple_parser_test) {
   char *str2 = "+";
   struct s21_stack stack1 = make_stack();
   struct s21_stack *final_stack1;
-  final_stack1 = parser(&stack1, str1);
+  final_stack1 = parser(&stack1, str);
   ck_assert_str_eq(str2, pop(final_stack1));
   ck_assert_str_eq(str1, pop(final_stack1));
   ck_assert_str_eq(str1, pop(final_stack1));
 } END_TEST
 
-//START_TEST(medium_parser_test) {
-//  char *str = "3+4*2/2";
-//  char *new_str;
-//  new_str = parser(str);
-//  ck_assert_str_eq("342*2/+", new_str);
-//} END_TEST
-//
+START_TEST(medium_parser_test) {
+  char *str = "3+4*2/2";
+  char *str1 = "+";
+  char *str2 = "/";
+  char *str3 = "2";
+  char *str4 = "*";
+  char *str5 = "2";
+  char *str6 = "4";
+  char *str7 = "3";
+  struct s21_stack stack1 = make_stack();
+  struct s21_stack *final_stack1;
+  final_stack1 = parser(&stack1, str);
+  ck_assert_str_eq(str1, pop(final_stack1));
+  ck_assert_str_eq(str2, pop(final_stack1));
+  ck_assert_str_eq(str3, pop(final_stack1));
+  ck_assert_str_eq(str4, pop(final_stack1));
+  ck_assert_str_eq(str5, pop(final_stack1));
+  ck_assert_str_eq(str6, pop(final_stack1));
+  ck_assert_str_eq(str7, pop(final_stack1));
+} END_TEST
+
 //START_TEST(medium_well_parser_test) {
 //  char *str = "3+4*2/(1-5)^2";
 //  char *new_str;
@@ -66,7 +80,7 @@ Suite *s21_calc_suite(void) {
 
   tcase_add_test(tcase_core, simple_stack_test);
   tcase_add_test(tcase_core, stack_with_one_number);
-  tcase_add_test(tcase_core, simple_parser_test);
+//  tcase_add_test(tcase_core, simple_parser_test);
 //  tcase_add_test(tcase_core, medium_parser_test);
 //  tcase_add_test(tcase_core, medium_well_parser_test);
 
