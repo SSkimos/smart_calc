@@ -23,7 +23,13 @@ struct s21_stack *parser(struct s21_stack *output_stack, char *current_str) {
       push(output_stack, number);
     }
     if (current_str[i] == '(') {
-      //TODO: it is bracket
+      push(&tmp_stack, "(");
+    }
+    if (current_str[i] == ')') {
+      while (strcmp(peek(&tmp_stack), "(") != 0) {
+        push(output_stack, pop(&tmp_stack));
+      }
+      pop(&tmp_stack);
     }
     if (current_str[i] == '+') {
       // 2
@@ -35,14 +41,14 @@ struct s21_stack *parser(struct s21_stack *output_stack, char *current_str) {
     }
     if (current_str[i] == '*') {
       // 3
-      while ((strcmp(peek(&tmp_stack), "/") == 1)) {
+      while ((strcmp(peek(&tmp_stack), "/") == 0)) {
         push(output_stack, pop(&tmp_stack));
       }
       push(&tmp_stack, "*");
     }
     if (current_str[i] == '/') {
       // 3
-      while ((strcmp(peek(&tmp_stack), "*") == 1)) {
+      while ((strcmp(peek(&tmp_stack), "*") == 0)) {
         push(output_stack, pop(&tmp_stack));
       }
       push(&tmp_stack, "/");
