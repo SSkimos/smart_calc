@@ -32,11 +32,17 @@ START_TEST(stack_with_one_number) {
   ck_assert_str_eq(str, pop(final_stack2));
 } END_TEST
 
-//START_TEST(simple_parser_test) {
-//  char *str = "2 + 2";
-//  char *new_str;
-//  new_str = parser(str);
-//} END_TEST
+START_TEST(simple_parser_test) {
+  char *str = "2 + 2";
+  char *str1 = "2";
+  char *str2 = "+";
+  struct s21_stack stack1 = make_stack();
+  struct s21_stack *final_stack1;
+  final_stack1 = parser(&stack1, str1);
+  ck_assert_str_eq(str2, pop(final_stack1));
+  ck_assert_str_eq(str1, pop(final_stack1));
+  ck_assert_str_eq(str1, pop(final_stack1));
+} END_TEST
 
 //START_TEST(medium_parser_test) {
 //  char *str = "3+4*2/2";
@@ -60,7 +66,7 @@ Suite *s21_calc_suite(void) {
 
   tcase_add_test(tcase_core, simple_stack_test);
   tcase_add_test(tcase_core, stack_with_one_number);
-//  tcase_add_test(tcase_core, simple_parser_test);
+  tcase_add_test(tcase_core, simple_parser_test);
 //  tcase_add_test(tcase_core, medium_parser_test);
 //  tcase_add_test(tcase_core, medium_well_parser_test);
 

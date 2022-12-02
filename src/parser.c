@@ -26,7 +26,7 @@ struct s21_stack *parser(struct s21_stack *output_stack, char *current_str) {
       //TODO: it is bracket
     }
     if (current_str[i] == '+') {
-      //TODO: it is plus
+      push(&tmp_stack, "+");
     }
     if (current_str[i] == '-') {
       //TODO: it is minus
@@ -44,7 +44,9 @@ struct s21_stack *parser(struct s21_stack *output_stack, char *current_str) {
       //TODO: it is unary minus
     }
   }
-
+  while (peek(&tmp_stack) != NULL) {
+    push(output_stack, pop(&tmp_stack));
+  }
   // TODO: придумать коды ошибок
   fclose(logs);
   return output_stack;
