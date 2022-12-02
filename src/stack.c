@@ -14,9 +14,7 @@ void push(struct s21_stack *stack, char* value) {
 
 char *pop(struct s21_stack *stack) {
   char *elem = NULL;
-  if (stack->size <= 0) {
-    printf("err: invalid pop (no elements in stack)\n");
-  } else {
+  if (stack->size > 0) {
     elem = strdup(stack->data[stack->size - 1]);
     free((stack->data[stack->size - 1]));
     stack->size--;
@@ -26,9 +24,7 @@ char *pop(struct s21_stack *stack) {
 
 char *peek(struct s21_stack *stack) {
   char *elem = NULL;
-  if (stack->size <= 0) {
-    printf("err: invalid peek (no elements in stack)\n");
-  } else {
+  if (stack->size > 0) {
     elem = strdup(stack->data[stack->size - 1]);
   }
   return elem;
