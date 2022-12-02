@@ -3,16 +3,12 @@
 
 START_TEST(simple_stack_test) {
   char *str = "123";
-  struct s21_stack stack;
-  stack.data = NULL;
-  stack.size = 0;
+  struct s21_stack stack = make_stack();
   push(&stack, str);
-  ck_assert_str_eq(str, peek(&stack));
   char *str2 = "123124214124";
   push(&stack, str2);
-  ck_assert_str_eq(str2, peek(&stack));
-  ck_assert_str_eq(str2, pop(&stack));
-  ck_assert_str_eq(str, pop(&stack));
+  ck_assert_int_eq(0, strcmp(str2, pop(&stack)));
+  ck_assert_int_eq(0, strcmp(str, pop(&stack)));
 } END_TEST
 
 START_TEST(stack_with_one_number) {
@@ -21,7 +17,7 @@ START_TEST(stack_with_one_number) {
   struct s21_stack *final_stack1;
 
   final_stack1 = parser(&stack1, str1);
-  ck_assert_str_eq(str1, pop(final_stack1));
+  ck_assert_int_eq(0, strcmp(str1, pop(final_stack1)));
 
   char *str2 = "2 2";
   char *str = "2";
@@ -29,7 +25,8 @@ START_TEST(stack_with_one_number) {
   struct s21_stack *final_stack2;
 
   final_stack2 = parser(&stack2, str2);
-  ck_assert_str_eq(str, pop(final_stack2));
+  ck_assert_int_eq(0, strcmp(str, pop(final_stack2)));
+  ck_assert_int_eq(0, strcmp(str, pop(final_stack2)));
 } END_TEST
 
 START_TEST(simple_parser_test) {
@@ -37,11 +34,8 @@ START_TEST(simple_parser_test) {
   char *str1 = "2";
   char *str2 = "+";
   struct s21_stack stack1 = make_stack();
-  struct s21_stack *final_stack1;
-  final_stack1 = parser(&stack1, str);
-  ck_assert_str_eq(str2, pop(final_stack1));
-  ck_assert_str_eq(str1, pop(final_stack1));
-  ck_assert_str_eq(str1, pop(final_stack1));
+  parser(&stack1, str);
+  ck_assert_int_eq(0, strcmp(str2, pop(&stack1)));
 } END_TEST
 
 START_TEST(medium_parser_test) {
@@ -54,15 +48,14 @@ START_TEST(medium_parser_test) {
   char *str6 = "4";
   char *str7 = "3";
   struct s21_stack stack1 = make_stack();
-  struct s21_stack *final_stack1;
-  final_stack1 = parser(&stack1, str);
-  ck_assert_str_eq(str1, pop(final_stack1));
-  ck_assert_str_eq(str2, pop(final_stack1));
-  ck_assert_str_eq(str3, pop(final_stack1));
-  ck_assert_str_eq(str4, pop(final_stack1));
-  ck_assert_str_eq(str5, pop(final_stack1));
-  ck_assert_str_eq(str6, pop(final_stack1));
-  ck_assert_str_eq(str7, pop(final_stack1));
+  parser(&stack1, str);
+  ck_assert_int_eq(0, strcmp(str1, pop(&stack1)));
+  ck_assert_int_eq(0, strcmp(str2, pop(&stack1)));
+  ck_assert_int_eq(0, strcmp(str3, pop(&stack1)));
+  ck_assert_int_eq(0, strcmp(str4, pop(&stack1)));
+  ck_assert_int_eq(0, strcmp(str5, pop(&stack1)));
+  ck_assert_int_eq(0, strcmp(str6, pop(&stack1)));
+  ck_assert_int_eq(0, strcmp(str7, pop(&stack1)));
 } END_TEST
 
 //START_TEST(medium_well_parser_test) {
@@ -80,8 +73,8 @@ Suite *s21_calc_suite(void) {
 
   tcase_add_test(tcase_core, simple_stack_test);
   tcase_add_test(tcase_core, stack_with_one_number);
-//  tcase_add_test(tcase_core, simple_parser_test);
-//  tcase_add_test(tcase_core, medium_parser_test);
+  tcase_add_test(tcase_core, simple_parser_test);
+  tcase_add_test(tcase_core, medium_parser_test);
 //  tcase_add_test(tcase_core, medium_well_parser_test);
 
   suite_add_tcase(suite, tcase_core);
