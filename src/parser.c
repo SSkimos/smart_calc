@@ -26,18 +26,29 @@ struct s21_stack *parser(struct s21_stack *output_stack, char *current_str) {
       //TODO: it is bracket
     }
     if (current_str[i] == '+') {
+      // 2
       push(&tmp_stack, "+");
     }
     if (current_str[i] == '-') {
-      //TODO: it is minus
+      // 2
+      push(&tmp_stack, "-");
     }
     if (current_str[i] == '*') {
-      //TODO: it is multiplication
+      // 3
+      while ((strcmp(peek(&tmp_stack), "/") == 1)) {
+        push(output_stack, pop(&tmp_stack));
+      }
+      push(&tmp_stack, "*");
     }
     if (current_str[i] == '/') {
-      //TODO: it is division
+      // 3
+      while ((strcmp(peek(&tmp_stack), "*") == 1)) {
+        push(output_stack, pop(&tmp_stack));
+      }
+      push(&tmp_stack, "/");
     }
     if (current_str[i] == '^') {
+      // 4
       //TODO: it is degree
     }
     if (current_str[i] == '~') {

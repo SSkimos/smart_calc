@@ -39,14 +39,12 @@ START_TEST(simple_parser_test) {
 } END_TEST
 
 START_TEST(medium_parser_test) {
-  char *str = "3+4*2/2";
+  char *str = "3+4*2";
   char *str1 = "+";
-  char *str2 = "/";
+  char *str2 = "*";
   char *str3 = "2";
-  char *str4 = "*";
-  char *str5 = "2";
-  char *str6 = "4";
-  char *str7 = "3";
+  char *str4 = "4";
+  char *str5 = "3";
   struct s21_stack stack1 = make_stack();
   parser(&stack1, str);
   ck_assert_int_eq(0, strcmp(str1, pop(&stack1)));
@@ -54,8 +52,6 @@ START_TEST(medium_parser_test) {
   ck_assert_int_eq(0, strcmp(str3, pop(&stack1)));
   ck_assert_int_eq(0, strcmp(str4, pop(&stack1)));
   ck_assert_int_eq(0, strcmp(str5, pop(&stack1)));
-  ck_assert_int_eq(0, strcmp(str6, pop(&stack1)));
-  ck_assert_int_eq(0, strcmp(str7, pop(&stack1)));
 } END_TEST
 
 //START_TEST(medium_well_parser_test) {
