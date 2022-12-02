@@ -2,24 +2,27 @@
 #include <string.h>
 #include <stdlib.h>
 
-
-struct s21_stack make_stack() {
-  struct s21_stack stack;
-  stack.data = NULL;
-  stack.size = 0;
-  return stack;
-}
-
-char *parser(char *current_str) {
-  struct s21_stack stack = make_stack();  // temp operand stack
-  struct s21_stack ans = make_stack();  // final stack
+struct s21_stack *parser(struct s21_stack *output_stack, char *current_str) {
+  struct s21_stack tmp_stack = make_stack();  // temp operand stack
+  printf(":debug: current case = '%s'\n", current_str);
 
   int iterator = 0;
 
   // main iter func
   for (int i = 0; i < strlen(current_str); i++) {
+    printf(":debug: current iterator = '%d'\n", i);
     if (current_str[i] - '0' >= 0 && current_str[i] - '0' <= 9) {
-      //TODO: it is number
+      //TODO: add parser float number
+      char *number = NULL;
+      number = (char*)malloc(sizeof(char));
+      number[0] = '\0';
+      while (current_str[i] - '0' >= 0 && current_str[i] - '0' <= 9) {
+        number = realloc(number, strlen(number) + 1);
+        number[(int)strlen(number)] = current_str[i];
+        printf(":debug: number = '%s'\n", number);
+        i++;
+      }
+      push(output_stack, number);
     }
     if (current_str[i] == '(') {
       //TODO: it is bracket
@@ -45,5 +48,5 @@ char *parser(char *current_str) {
   }
 
   // TODO: придумать коды ошибок
-  return buffer_string;
+  return output_stack;
 }
