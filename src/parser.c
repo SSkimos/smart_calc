@@ -49,8 +49,6 @@ struct s21_stack *parser(struct s21_stack *output_stack, char *current_str) {
       number = find_number(&i, number, current_str);
       if (number) {
         push(output_stack, number);
-      }
-      if (number) {
         free(number);
         number = NULL;
       }
