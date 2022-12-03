@@ -2,6 +2,37 @@
 
 char *find_number(int *i, char *number, char *current_str);
 
+void relocate_values(struct s21_stack *tmp_stack, struct s21_stack *output_stack, int priority) {
+  char list[7] = "(+-*/^";
+  char *value = NULL;
+  int i = 0;
+  int j = 0;
+  if (priority == ZERO_LEVEL) {
+    if (peek(tmp_stack)) {
+      if (peek(tmp_stack)[0] != list[i]) {
+        value = pop(tmp_stack);
+        push(output_stack, value);
+        relocate_values(tmp_stack, output_stack, priority);
+      } else {
+        pop(tmp_stack);
+      }
+    }
+  } else {
+    if (priority == FIRST_LEVEL) { i = 5; j = 1; }
+    if (priority == SECOND_LEVEL) { i = 5; j = 2; }
+    if (priority == THIRD_LEVEL) { i = 5; j = 4; }
+    for (; i > j; i--) {
+      if (peek(tmp_stack)) {
+        if (peek(tmp_stack)[0] == list[i]) {
+          value = pop(tmp_stack);
+          push(output_stack, value);
+          relocate_values(tmp_stack, output_stack, priority);
+        }
+      }
+    }
+  }
+}
+
 struct s21_stack *parser(struct s21_stack *output_stack, char *current_str) {
   struct s21_stack tmp_stack = make_stack();  // temp operand stack
   int iterator = 0;
@@ -28,46 +59,32 @@ struct s21_stack *parser(struct s21_stack *output_stack, char *current_str) {
       push(&tmp_stack, "(");
     }
     if (current_str[i] == ')') {
-      while (strcmp(peek(&tmp_stack), "(") != 0) {
-        value = pop(&tmp_stack);
-        push(output_stack, value);
-        free(value);
-      }
-      value = pop(&tmp_stack);
-      free(value);
+      relocate_values(&tmp_stack, output_stack, ZERO_LEVEL);
     }
     if (current_str[i] == '+') {
       // 2
+      relocate_values(&tmp_stack, output_stack, FIRST_LEVEL);
       push(&tmp_stack, "+");
     }
     if (current_str[i] == '-') {
       // 2
+      relocate_values(&tmp_stack, output_stack, FIRST_LEVEL);
       push(&tmp_stack, "-");
     }
     if (current_str[i] == '*') {
       // 3
-      while ((strcmp(peek(&tmp_stack), "/") == 0)) {
-        value = pop(&tmp_stack);
-        push(output_stack, value);
-        free(value);
-      }
+      relocate_values(&tmp_stack, output_stack, SECOND_LEVEL);
       push(&tmp_stack, "*");
     }
     if (current_str[i] == '/') {
       // 3
-      while ((strcmp(peek(&tmp_stack), "*") == 0)) {
-        value = pop(&tmp_stack);
-        push(output_stack, value);
-        free(value);
-      }
+      relocate_values(&tmp_stack, output_stack, SECOND_LEVEL);
       push(&tmp_stack, "/");
     }
     if (current_str[i] == '^') {
       // 4
-      //TODO: it is degree
-    }
-    if (current_str[i] == '~') {
-      //TODO: it is unary minus
+      relocate_values(&tmp_stack, output_stack, SECOND_LEVEL);
+      push(&tmp_stack, "^");
     }
   }
   while (peek(&tmp_stack) != NULL) {

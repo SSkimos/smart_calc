@@ -69,6 +69,15 @@ START_TEST(medium_well_parser_test) {
   char *str9 = "3";
   struct s21_stack stack1 = make_stack();
   parser(&stack1, str);
+//  printf("+ = '%s'\n", pop(&stack1));
+//  printf("/ = '%s'\n", pop(&stack1));
+//  printf("+ = '%s'\n", pop(&stack1));
+//  printf("200 = '%s'\n", pop(&stack1));
+//  printf("123 = '%s'\n", pop(&stack1));
+//  printf("* = '%s'\n", pop(&stack1));
+//  printf("2 = '%s'\n", pop(&stack1));
+//  printf("4 = '%s'\n", pop(&stack1));
+//  printf("3 = '%s'\n", pop(&stack1));
   ck_assert_int_eq(0, strcmp(str1, pop(&stack1)));
   ck_assert_int_eq(0, strcmp(str2, pop(&stack1)));
   ck_assert_int_eq(0, strcmp(str3, pop(&stack1)));

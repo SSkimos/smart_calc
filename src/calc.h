@@ -5,6 +5,11 @@
 #include <stdlib.h>
 #include <string.h>
 
+#define ZERO_LEVEL 0
+#define FIRST_LEVEL 1
+#define SECOND_LEVEL 2
+#define THIRD_LEVEL 3
+
 typedef struct s21_stack {
     char **data;
     int size;
