@@ -9,6 +9,7 @@
 #define FIRST_LEVEL 1
 #define SECOND_LEVEL 2
 #define THIRD_LEVEL 3
+#define FOURTH_LEVEL 4
 
 typedef struct s21_stack {
     char **data;
