@@ -9,6 +9,7 @@ START_TEST(simple_stack_test) {
   push(&stack, str2);
   ck_assert_int_eq(0, strcmp(str2, pop(&stack)));
   ck_assert_int_eq(0, strcmp(str, pop(&stack)));
+  clear_stack(&stack);
 } END_TEST
 
 START_TEST(stack_with_one_number) {
@@ -18,6 +19,7 @@ START_TEST(stack_with_one_number) {
 
   final_stack1 = parser(&stack1, str1);
   ck_assert_int_eq(0, strcmp(str1, pop(final_stack1)));
+  clear_stack(&stack1);
 
   char *str2 = "2 2";
   char *str = "2";

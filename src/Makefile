@@ -1,7 +1,7 @@
 CC = gcc
 WARNING =
 SANITIZE = -g -fsanitize=address
-CFLAGS = -std=c11 -pedantic $(WARNING)
+CFLAGS = -std=c11 -pedantic $(WARNING) # -g -fsanitize=address
 LFLAGS ?= $(shell pkg-config --cflags --libs check)
 INC_CHECK ?= $(shell pkg-config --cflags check)
 
@@ -15,7 +15,7 @@ s21_stack.a: $(STACK_O)
 	ranlib $@
 
 test: s21_stack.a
-	$(CC) tests/s21_calc_tests.c parser.c $(INC_CHECK) $(CFLAGS) $(LFLAGS) --coverage -lcheck s21_stack.a -o test.out
+	$(CC) tests/s21_calc_tests.c parser.c $(INC_CHECK) $(CFLAGS) $(LFLAGS) $(SANITIZE) --coverage -lcheck s21_stack.a -o test.out
 	./test.out
 
 

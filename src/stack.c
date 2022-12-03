@@ -36,3 +36,9 @@ struct s21_stack make_stack() {
   stack.size = 0;
   return stack;
 }
+
+void clear_stack(struct s21_stack *stack) {
+    while (peek(stack) != NULL) {
+        pop(stack);
+    }
+}
