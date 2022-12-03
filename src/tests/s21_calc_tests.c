@@ -69,15 +69,6 @@ START_TEST(medium_well_parser_test) {
   char *str9 = "3";
   struct s21_stack stack1 = make_stack();
   parser(&stack1, str);
-//  printf("+ = '%s'\n", pop(&stack1));
-//  printf("/ = '%s'\n", pop(&stack1));
-//  printf("+ = '%s'\n", pop(&stack1));
-//  printf("200 = '%s'\n", pop(&stack1));
-//  printf("123 = '%s'\n", pop(&stack1));
-//  printf("* = '%s'\n", pop(&stack1));
-//  printf("2 = '%s'\n", pop(&stack1));
-//  printf("4 = '%s'\n", pop(&stack1));
-//  printf("3 = '%s'\n", pop(&stack1));
   ck_assert_int_eq(0, strcmp(str1, pop(&stack1)));
   ck_assert_int_eq(0, strcmp(str2, pop(&stack1)));
   ck_assert_int_eq(0, strcmp(str3, pop(&stack1)));
@@ -87,6 +78,34 @@ START_TEST(medium_well_parser_test) {
   ck_assert_int_eq(0, strcmp(str7, pop(&stack1)));
   ck_assert_int_eq(0, strcmp(str8, pop(&stack1)));
   ck_assert_int_eq(0, strcmp(str9, pop(&stack1)));
+} END_TEST
+
+START_TEST(hard_parse_test) {
+  char *str = "(sin(2)+cos(3))^(400-1000/200)";
+  char *str1 = "^";
+  char *str2 = "-";
+  char *str3 = "/";
+  char *str4 = "200";
+  char *str5 = "1000";
+  char *str6 = "400";
+  char *str7 = "+";
+  char *str8 = "c";
+  char *str9 = "3";
+  char *str10 = "s";
+  char *str11 = "2";
+  struct s21_stack stack1 = make_stack();
+  parser(&stack1, str);
+  ck_assert_int_eq(0, strcmp(str1, pop(&stack1)));
+  ck_assert_int_eq(0, strcmp(str2, pop(&stack1)));
+  ck_assert_int_eq(0, strcmp(str3, pop(&stack1)));
+  ck_assert_int_eq(0, strcmp(str4, pop(&stack1)));
+  ck_assert_int_eq(0, strcmp(str5, pop(&stack1)));
+  ck_assert_int_eq(0, strcmp(str6, pop(&stack1)));
+  ck_assert_int_eq(0, strcmp(str7, pop(&stack1)));
+  ck_assert_int_eq(0, strcmp(str8, pop(&stack1)));
+  ck_assert_int_eq(0, strcmp(str9, pop(&stack1)));
+  ck_assert_int_eq(0, strcmp(str10, pop(&stack1)));
+  ck_assert_int_eq(0, strcmp(str11, pop(&stack1)));
 } END_TEST
 
 Suite *s21_calc_suite(void) {
@@ -100,6 +119,7 @@ Suite *s21_calc_suite(void) {
   tcase_add_test(tcase_core, simple_parser_test);
   tcase_add_test(tcase_core, medium_parser_test);
   tcase_add_test(tcase_core, medium_well_parser_test);
+  tcase_add_test(tcase_core, hard_parse_test);
 
   suite_add_tcase(suite, tcase_core);
 
