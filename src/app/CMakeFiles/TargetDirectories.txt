@@ -1,3 +1,0 @@
-/Users/sskimos/school21/smart_calc/src/app/CMakeFiles/HelloWorld.dir
-/Users/sskimos/school21/smart_calc/src/app/CMakeFiles/edit_cache.dir
-/Users/sskimos/school21/smart_calc/src/app/CMakeFiles/rebuild_cache.dir
