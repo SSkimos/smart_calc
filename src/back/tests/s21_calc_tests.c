@@ -109,10 +109,27 @@ START_TEST(hard_parse_test) {
 } END_TEST
 
 START_TEST(first_full_back) {
-  char *str = "2+2";
-  struct s21_stack stack1 = make_stack();
-  long double ans = polish(str);
+  char *str1 = "2+2";
+  long double ans = polish(str1);
   ck_assert_float_eq(4, ans);
+
+  char *str2 = "4-2";
+  ans = polish(str2);
+  ck_assert_float_eq(2, ans);
+
+  char *str3 = "2*200";
+  ans = polish(str3);
+  ck_assert_float_eq(400, ans);
+
+  char *str4 = "1000/2";
+  ans = polish(str4);
+  ck_assert_float_eq(500, ans);
+}
+
+START_TEST(advanced_tests) {
+  char *str1 = "800/2*16+888";
+  long double ans = polish(str1);
+  ck_assert_float_eq(7288, ans);
 }
 
 Suite *s21_calc_suite(void) {
@@ -127,7 +144,8 @@ Suite *s21_calc_suite(void) {
   tcase_add_test(tcase_core, medium_parser_test);
   tcase_add_test(tcase_core, medium_well_parser_test);
   tcase_add_test(tcase_core, hard_parse_test);
-  tcase_add_test(tcase_core, first_full_back);
+//  tcase_add_test(tcase_core, first_full_back);
+  tcase_add_test(tcase_core, advanced_tests);
 
   suite_add_tcase(suite, tcase_core);
 

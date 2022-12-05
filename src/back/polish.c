@@ -21,6 +21,7 @@ long double polish(char *str) {
   long double a = 0.0;
   long double b = 0.0;
   long double answer = 0.0;
+  int flag = 0;
 
   struct s21_stack buffer = make_stack();
   parser(&buffer, str);
@@ -28,22 +29,53 @@ long double polish(char *str) {
   revert_stack(&buffer, &stack);
 
   while (peek(&stack)) {
+    printf("ans = %Lf\n", answer);
     if (peek(&stack)) {
       first_arg = pop(&stack);
+      printf("f = %s\n", first_arg);
     }
-    if (peek(&stack)) {
+    if (peek(&stack) && !second_arg) {
       second_arg = pop(&stack);
+      printf("s = %s\n", second_arg);
+      flag = 1;
     }
     if (is_number(second_arg)) {
       if (peek(&stack)) {
         third_arg = pop(&stack);
+        printf("th = %s\n", third_arg);
       }
       char *ptr = NULL;
       a = strtold(first_arg, &ptr);
       b = strtold(second_arg, &ptr);
       if (strcmp("+", third_arg) == 0) {
-        answer = answer + a + b;
+        if (!flag) {
+          answer = answer + a;
+        } else {
+          answer = answer + a + b;
+        }
       }
+      if (strcmp("-", third_arg) == 0) {
+        if (!flag) {
+          answer = answer - a-b;
+        } else {
+          answer = answer + (a-b);
+        }
+      }
+      if (strcmp("*", third_arg) == 0) {
+        if (!flag) {
+          answer = answer * a;
+        } else {
+          answer = answer + (a * b);
+        }
+      }
+      if (strcmp("/", third_arg) == 0) {
+        if (!flag) {
+          answer = (answer / a);
+        } else {
+          answer = (answer + (a/b));
+        }
+      }
+      flag = 0;
     } else {
       // TODO: sin/cos/etc
     }
