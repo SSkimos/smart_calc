@@ -146,6 +146,18 @@ START_TEST(float_tests) {
   ck_assert_float_eq(3, ans);
 }
 
+START_TEST(u_minus) {
+  char *str1 = "-2";
+  long double ans = polish(str1);
+  ck_assert_float_eq(-2, ans);
+}
+
+START_TEST(sin_tests) {
+  char *str1 = "sin(2)";
+  long double ans = polish(str1);
+  ck_assert_double_eq_tol(sin(2), ans, 1e-7);
+}
+
 Suite *s21_calc_suite(void) {
   Suite *suite;
 
@@ -161,6 +173,9 @@ Suite *s21_calc_suite(void) {
   tcase_add_test(tcase_core, first_full_back);
   tcase_add_test(tcase_core, advanced_tests);
   tcase_add_test(tcase_core, float_tests);
+  tcase_add_test(tcase_core, u_minus);
+
+  tcase_add_test(tcase_core, sin_tests);
 
   suite_add_tcase(suite, tcase_core);
 

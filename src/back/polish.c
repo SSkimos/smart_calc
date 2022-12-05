@@ -32,11 +32,23 @@ long double polish(char *str) {
 //    printf("ans = %Lf\n", answer);
     if (peek(&stack)) {
       first_arg = pop(&stack);
-//      printf("f = %s\n", first_arg);
     }
     if (peek(&stack) && !second_arg) {
       second_arg = pop(&stack);
-//      printf("s = %s\n", second_arg);
+      // unary minus
+      if (strcmp("-", second_arg) == 0) {
+        printf("huy\n\n\n\n");
+        char *ptr = NULL;
+        a = strtold(first_arg, &ptr);
+        answer = 0 - a;
+        flag = 1;
+        // unary minus
+      } else if (strcmp("+", second_arg) == 0) {
+        char *ptr = NULL;
+        a = strtold(first_arg, &ptr);
+        answer = a;
+        flag = 1;
+      }
       flag = 1;
     }
     if (is_number(second_arg)) {
@@ -84,7 +96,15 @@ long double polish(char *str) {
       }
       flag = 0;
     } else {
-      // TODO: sin/cos/etc
+      char *ptr = NULL;
+      a = strtold(first_arg, &ptr);
+      if (strcmp("s", second_arg) == 0) {
+        if (!flag) {
+          answer = sin(answer);
+        } else {
+          answer = sin(a);
+        }
+      }
     }
   }
   return answer;
