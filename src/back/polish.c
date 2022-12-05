@@ -6,14 +6,20 @@ void revert_stack(struct s21_stack *old, struct s21_stack *new) {
   }
 }
 
+int is_number(char *ptr) {
+  int flag = 0;
+  if ((ptr[0] - '0' > 0 && ptr[0] - '0' < 9) || ptr[0] == '.') {
+    flag = 1;
+  }
+  return flag;
+}
+
 long double polish(char *str) {
-  char *c_first = NULL;
-  char *c_second = NULL;
-  char ans[1000] = {'\0'};
-  long double n_first = 0.0;
-  long double n_second = 0.0;
-  char *operation = NULL;
-  char *new_str = NULL;
+  char *first_arg = NULL;
+  char *second_arg = NULL;
+  char *third_arg = NULL;
+  long double a = 0.0;
+  long double b = 0.0;
   long double answer = 0.0;
 
   struct s21_stack buffer = make_stack();
@@ -23,19 +29,23 @@ long double polish(char *str) {
 
   while (peek(&stack)) {
     if (peek(&stack)) {
-      c_first = pop(&stack);
+      first_arg = pop(&stack);
     }
     if (peek(&stack)) {
-      c_second = pop(&stack);
+      second_arg = pop(&stack);
     }
-    if (peek(&stack)) {
-      operation = pop(&stack);
-    }
-    char *ptr = NULL;
-    n_first = strtold(c_first, &ptr);
-    n_second = strtold(c_second, &ptr);
-    if (strcmp("+", operation) == 0) {
-      answer = answer + n_first + n_second;
+    if (is_number(second_arg)) {
+      if (peek(&stack)) {
+        third_arg = pop(&stack);
+      }
+      char *ptr = NULL;
+      a = strtold(first_arg, &ptr);
+      b = strtold(second_arg, &ptr);
+      if (strcmp("+", third_arg) == 0) {
+        answer = answer + a + b;
+      }
+    } else {
+      // TODO: sin/cos/etc
     }
   }
   return answer;
