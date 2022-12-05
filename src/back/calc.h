@@ -26,4 +26,7 @@ void clear_stack(struct s21_stack *stack);
 // parser methods
 struct s21_stack *parser(struct s21_stack *output_stack, char *current_str);
 
+//polish methods
+char *polish(char *str);
+
 #endif

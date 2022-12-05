@@ -108,6 +108,13 @@ START_TEST(hard_parse_test) {
   ck_assert_int_eq(0, strcmp(str11, pop(&stack1)));
 } END_TEST
 
+START_TEST(first_full_back) {
+  char *str = "2+2";
+  struct s21_stack stack1 = make_stack();
+  str = polish(str);
+  ck_assert_str_eq("4", str);
+}
+
 Suite *s21_calc_suite(void) {
   Suite *suite;
 
@@ -120,6 +127,7 @@ Suite *s21_calc_suite(void) {
   tcase_add_test(tcase_core, medium_parser_test);
   tcase_add_test(tcase_core, medium_well_parser_test);
   tcase_add_test(tcase_core, hard_parse_test);
+  tcase_add_test(tcase_core, first_full_back);
 
   suite_add_tcase(suite, tcase_core);
 
