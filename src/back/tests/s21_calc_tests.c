@@ -139,9 +139,9 @@ START_TEST(advanced_tests) {
   ans = polish(str3);
   ck_assert_float_eq(1, ans);
 
-//  char *str4 = "2^2";
-//  ans = polish(str4);
-//  ck_assert_float_eq(4, ans);
+  char *str4 = "2^2";
+  ans = polish(str4);
+  ck_assert_float_eq(4, ans);
 
   char *str5 = "sqrt(4)";
   ans = polish(str5);

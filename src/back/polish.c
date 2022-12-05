@@ -66,6 +66,13 @@ long double polish(char *str) {
           answer = answer + a + b;
         }
       }
+      if (strcmp("^", third_arg) == 0) {
+        if (!flag) {
+          answer = pow(answer, a);
+        } else {
+          answer = answer + pow(a, b);
+        }
+      }
       if (strcmp("-", third_arg) == 0) {
         if (!flag) {
           answer = answer - a-b;
