@@ -41,6 +41,8 @@ MainWindow::MainWindow(QWidget *parent)
     connect(ui->pushButton_dot, SIGNAL(clicked()), this, SLOT(add_value()));
     connect(ui->pushButton_v, SIGNAL(clicked()), this, SLOT(add_value()));
 
+    connect(ui->pushButton_ans, SIGNAL(clicked()), this, SLOT(aboba()));
+
     connect(ui->pushButton_clear, SIGNAL(clicked()), this, SLOT(clear()));
 }
 
@@ -49,11 +51,28 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
+
+void MainWindow::aboba()
+{
+    QString old_label;
+    old_label = ui->label_str->text();
+    QByteArray ba = old_label.toLocal8Bit();
+    char *buffer = ba.data();
+    long double value = polish(buffer);
+    QString toStr = QString::number(value,'g',6);
+    ui->label_show->setText(toStr);
+
+}
+
 void MainWindow::clear()
 {
-    QString new_label;
-    new_label = "";
-    ui->label_str->setText(new_label);
+    QString first_label;
+    first_label = "";
+    ui->label_str->setText(first_label);
+
+    QString second_label;
+    second_label = "";
+    ui->label_show->setText(second_label);
 }
 
 void MainWindow::add_value()

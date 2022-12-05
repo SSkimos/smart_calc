@@ -3,6 +3,10 @@
 
 #include <QMainWindow>
 
+extern "C" {
+    #include "../back/calc.h"
+}
+
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
 QT_END_NAMESPACE
@@ -20,6 +24,7 @@ private:
 
 private slots:
     void add_value();
+    void aboba();
     void clear();
 };
 #endif // MAINWINDOW_H
