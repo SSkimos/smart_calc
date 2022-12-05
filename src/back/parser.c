@@ -3,7 +3,7 @@
 char *find_number(int *i, char *number, char *current_str);
 
 void relocate_values(struct s21_stack *tmp_stack, struct s21_stack *output_stack, int priority) {
-  char list[16] = "(+-*/^cstCSTvlL";
+  char list[16] = "(+-*/%^cstCSTvlL";
   char *value = NULL;
   int i = 0;
   int j = 0;
@@ -21,7 +21,7 @@ void relocate_values(struct s21_stack *tmp_stack, struct s21_stack *output_stack
     if (priority == FIRST_LEVEL) { i = 15; j = 1; }
     if (priority == SECOND_LEVEL) { i = 15; j = 2; }
     if (priority == THIRD_LEVEL) { i = 15; j = 4; }
-    if (priority == FOURTH_LEVEL) { i = 15; j = 5; }
+    if (priority == FOURTH_LEVEL) { i = 15; j = 6; }
     for (; i > j; i--) {
       if (peek(tmp_stack)) {
         if (peek(tmp_stack)[0] == list[i]) {
@@ -38,12 +38,9 @@ struct s21_stack *parser(struct s21_stack *output_stack, char *current_str) {
   struct s21_stack tmp_stack = make_stack();  // temp operand stack
   int iterator = 0;
   char *value = NULL;
-  FILE *logs;
-  logs = fopen("parser_logs.txt", "a");
 
   // main iter func
   for (int i = 0; i < strlen(current_str); i++) {
-    fprintf(logs, ":debug: current iterator = '%d'\n", i);
     if (current_str[i] - '0' >= 0 && current_str[i] - '0' <= 9) {
       //TODO: add parser float number
       char *number = NULL;
@@ -79,6 +76,11 @@ struct s21_stack *parser(struct s21_stack *output_stack, char *current_str) {
       // 3
       relocate_values(&tmp_stack, output_stack, SECOND_LEVEL);
       push(&tmp_stack, "/");
+    }
+    if (current_str[i] == '%') {
+      // 3
+      relocate_values(&tmp_stack, output_stack, SECOND_LEVEL);
+      push(&tmp_stack, "%");
     }
     if (current_str[i] == '^') {
       // 4
@@ -138,7 +140,6 @@ struct s21_stack *parser(struct s21_stack *output_stack, char *current_str) {
   }
   // TODO: придумать коды ошибок
   clear_stack(&tmp_stack);
-  fclose(logs);
   return output_stack;
 }
 

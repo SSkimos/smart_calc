@@ -29,20 +29,20 @@ long double polish(char *str) {
   revert_stack(&buffer, &stack);
 
   while (peek(&stack)) {
-    printf("ans = %Lf\n", answer);
+//    printf("ans = %Lf\n", answer);
     if (peek(&stack)) {
       first_arg = pop(&stack);
-      printf("f = %s\n", first_arg);
+//      printf("f = %s\n", first_arg);
     }
     if (peek(&stack) && !second_arg) {
       second_arg = pop(&stack);
-      printf("s = %s\n", second_arg);
+//      printf("s = %s\n", second_arg);
       flag = 1;
     }
     if (is_number(second_arg)) {
       if (peek(&stack)) {
         third_arg = pop(&stack);
-        printf("th = %s\n", third_arg);
+//        printf("th = %s\n", third_arg);
       }
       char *ptr = NULL;
       a = strtold(first_arg, &ptr);
