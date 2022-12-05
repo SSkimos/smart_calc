@@ -75,6 +75,13 @@ long double polish(char *str) {
           answer = (answer + (a/b));
         }
       }
+      if (strcmp("%", third_arg) == 0) {
+        if (!flag) {
+          answer = (fmod(answer, a));
+        } else {
+          answer = (answer + (fmod(a, b)));
+        }
+      }
       flag = 0;
     } else {
       // TODO: sin/cos/etc

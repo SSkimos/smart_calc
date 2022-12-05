@@ -156,6 +156,18 @@ char *find_number(int *i, char *number, char *current_str) {
     size++;
     (*i)++;
   }
+  if (current_str[*i] == '.') {
+    number = realloc(number, size + 1);
+    number[size] = current_str[*i];
+    size++;
+    (*i)++;
+    while (current_str[*i] - '0' >= 0 && current_str[*i] - '0' <= 9) {
+      number = realloc(number, size + 1);
+      number[size] = current_str[*i];
+      size++;
+      (*i)++;
+    }
+  }
   number = realloc(number, size + 1);
   number[size] = '\0';
   return number;

@@ -130,6 +130,20 @@ START_TEST(advanced_tests) {
   char *str1 = "800/2*16+888";
   long double ans = polish(str1);
   ck_assert_float_eq(7288, ans);
+
+  char *str2 = "200%2";
+  ans = polish(str2);
+  ck_assert_float_eq(0, ans);
+
+  char *str3 = "201%2";
+  ans = polish(str3);
+  ck_assert_float_eq(1, ans);
+}
+
+START_TEST(float_tests) {
+  char *str1 = "1.5*2";
+  long double ans = polish(str1);
+  ck_assert_float_eq(3, ans);
 }
 
 Suite *s21_calc_suite(void) {
@@ -144,8 +158,9 @@ Suite *s21_calc_suite(void) {
   tcase_add_test(tcase_core, medium_parser_test);
   tcase_add_test(tcase_core, medium_well_parser_test);
   tcase_add_test(tcase_core, hard_parse_test);
-//  tcase_add_test(tcase_core, first_full_back);
+  tcase_add_test(tcase_core, first_full_back);
   tcase_add_test(tcase_core, advanced_tests);
+  tcase_add_test(tcase_core, float_tests);
 
   suite_add_tcase(suite, tcase_core);
 
