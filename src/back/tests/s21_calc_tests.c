@@ -138,6 +138,22 @@ START_TEST(advanced_tests) {
   char *str3 = "201%2";
   ans = polish(str3);
   ck_assert_float_eq(1, ans);
+
+//  char *str4 = "2^2";
+//  ans = polish(str4);
+//  ck_assert_float_eq(4, ans);
+
+  char *str5 = "sqrt(4)";
+  ans = polish(str5);
+  ck_assert_float_eq(2, ans);
+
+  char *str6 = "log(10)";
+  ans = polish(str6);
+  ck_assert_float_eq(log(10), ans);
+
+  char *str7 = "ln(10)";
+  ans = polish(str7);
+  ck_assert_float_eq(log10(10), ans);
 }
 
 START_TEST(float_tests) {
@@ -152,10 +168,30 @@ START_TEST(u_minus) {
   ck_assert_float_eq(-2, ans);
 }
 
-START_TEST(sin_tests) {
-  char *str1 = "sin(2)";
+START_TEST(easy_trigonometry_tests) {
+  char *str1 = "cos(1)";
   long double ans = polish(str1);
-  ck_assert_double_eq_tol(sin(2), ans, 1e-7);
+  ck_assert_double_eq_tol(cos(1), ans, 1e-7);
+
+  char *str2 = "sin(1)";
+  ans = polish(str2);
+  ck_assert_double_eq_tol(sin(1), ans, 1e-7);
+
+  char *str3 = "tan(1)";
+  ans = polish(str3);
+  ck_assert_double_eq_tol(tan(1), ans, 1e-7);
+
+  char *str4 = "acos(1)";
+  ans = polish(str4);
+  ck_assert_double_eq_tol(acos(1), ans, 1e-7);
+
+  char *str5 = "asin(1)";
+  ans = polish(str5);
+  ck_assert_double_eq_tol(asin(1), ans, 1e-7);
+
+  char *str6 = "atan(1)";
+  ans = polish(str6);
+  ck_assert_double_eq_tol(atan(1), ans, 1e-7);
 }
 
 Suite *s21_calc_suite(void) {
@@ -175,7 +211,7 @@ Suite *s21_calc_suite(void) {
   tcase_add_test(tcase_core, float_tests);
   tcase_add_test(tcase_core, u_minus);
 
-  tcase_add_test(tcase_core, sin_tests);
+  tcase_add_test(tcase_core, easy_trigonometry_tests);
 
   suite_add_tcase(suite, tcase_core);
 

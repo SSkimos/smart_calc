@@ -125,12 +125,12 @@ struct s21_stack *parser(struct s21_stack *output_stack, char *current_str) {
     if (current_str[i] == 'l' && current_str[i + 1] == 'n') {
       i += 2;
       relocate_values(&tmp_stack, output_stack, FOURTH_LEVEL);
-      push(&tmp_stack, "l");
+      push(&tmp_stack, "L");
     }
     if (current_str[i] == 'l' && current_str[i + 1] == 'o' && current_str[i + 2] == 'g') {
       i += 3;
       relocate_values(&tmp_stack, output_stack, FOURTH_LEVEL);
-      push(&tmp_stack, "L");
+      push(&tmp_stack, "l");
     }
   }
   while (peek(&tmp_stack) != NULL) {

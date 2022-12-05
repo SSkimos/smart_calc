@@ -98,11 +98,74 @@ long double polish(char *str) {
     } else {
       char *ptr = NULL;
       a = strtold(first_arg, &ptr);
+      if (strcmp("v", second_arg) == 0) {
+        if (!flag) {
+          answer = sqrt(answer);
+        } else {
+          answer = sqrt(a);
+        }
+      }
+      if (strcmp("l", second_arg) == 0) {
+        if (!flag) {
+          answer = log(answer);
+        } else {
+          answer = log(a);
+        }
+      }
+      if (strcmp("L", second_arg) == 0) {
+        if (!flag) {
+          answer = log10(answer);
+        } else {
+          answer = log10(a);
+        }
+      }
       if (strcmp("s", second_arg) == 0) {
         if (!flag) {
           answer = sin(answer);
         } else {
           answer = sin(a);
+        }
+      }
+      if (strcmp("c", second_arg) == 0) {
+        if (!flag) {
+          answer = cos(answer);
+        } else {
+          answer = cos(a);
+        }
+      }
+      if (strcmp("s", second_arg) == 0) {
+        if (!flag) {
+          answer = sin(answer);
+        } else {
+          answer = sin(a);
+        }
+      }
+      if (strcmp("t", second_arg) == 0) {
+        if (!flag) {
+          answer = tan(answer);
+        } else {
+          answer = tan(a);
+        }
+      }
+      if (strcmp("C", second_arg) == 0) {
+        if (!flag) {
+          answer = acos(answer);
+        } else {
+          answer = acos(a);
+        }
+      }
+      if (strcmp("S", second_arg) == 0) {
+        if (!flag) {
+          answer = asin(answer);
+        } else {
+          answer = asin(a);
+        }
+      }
+      if (strcmp("T", second_arg) == 0) {
+        if (!flag) {
+          answer = atan(answer);
+        } else {
+          answer = atan(a);
         }
       }
     }
