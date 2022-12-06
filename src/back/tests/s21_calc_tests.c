@@ -92,6 +92,18 @@ START_TEST(x_val) {
   ck_assert_float_eq(5, ans);
 }
 
+START_TEST(exceptions_test) {
+  char *str1 = "1000)";
+  long double ans = polish(str1, NULL);
+  ck_assert_float_eq(0, ans);
+}
+
+START_TEST(one_arg) {
+  char *str2 = "200";
+  long double ans = polish(str2, NULL);
+  ck_assert_float_eq(200, ans);
+}
+
 Suite *s21_calc_suite(void) {
   Suite *suite;
 
@@ -105,6 +117,9 @@ Suite *s21_calc_suite(void) {
   tcase_add_test(tcase_core, primitive_trigonometry_tests);
 
   tcase_add_test(tcase_core, x_val);
+
+  tcase_add_test(tcase_core, exceptions_test);
+  tcase_add_test(tcase_core, one_arg);
 
   suite_add_tcase(suite, tcase_core);
 
