@@ -28,6 +28,6 @@ void clear_stack(struct s21_stack *stack);
 struct s21_stack *parser(struct s21_stack *output_stack, char *current_str);
 
 //polish methods
-long double polish(char *str);
+long double polish(char *str, long double *x);
 
 #endif

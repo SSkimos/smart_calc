@@ -110,87 +110,87 @@ START_TEST(hard_parse_test) {
 
 START_TEST(first_full_back) {
   char *str1 = "2+2";
-  long double ans = polish(str1);
+  long double ans = polish(str1, NULL);
   ck_assert_float_eq(4, ans);
 
   char *str2 = "4-2";
-  ans = polish(str2);
+  ans = polish(str2, NULL);
   ck_assert_float_eq(2, ans);
 
   char *str3 = "2*200";
-  ans = polish(str3);
+  ans = polish(str3, NULL);
   ck_assert_float_eq(400, ans);
 
   char *str4 = "1000/2";
-  ans = polish(str4);
+  ans = polish(str4, NULL);
   ck_assert_float_eq(500, ans);
 }
 
 START_TEST(advanced_tests) {
   char *str1 = "800/2*16+888";
-  long double ans = polish(str1);
+  long double ans = polish(str1, NULL);
   ck_assert_float_eq(7288, ans);
 
   char *str2 = "200%2";
-  ans = polish(str2);
+  ans = polish(str2, NULL);
   ck_assert_float_eq(0, ans);
 
   char *str3 = "201%2";
-  ans = polish(str3);
+  ans = polish(str3, NULL);
   ck_assert_float_eq(1, ans);
 
   char *str4 = "2^2";
-  ans = polish(str4);
+  ans = polish(str4, NULL);
   ck_assert_float_eq(4, ans);
 
   char *str5 = "sqrt(4)";
-  ans = polish(str5);
+  ans = polish(str5, NULL);
   ck_assert_float_eq(2, ans);
 
   char *str6 = "log(10)";
-  ans = polish(str6);
+  ans = polish(str6, NULL);
   ck_assert_float_eq(log(10), ans);
 
   char *str7 = "ln(10)";
-  ans = polish(str7);
+  ans = polish(str7, NULL);
   ck_assert_float_eq(log10(10), ans);
 }
 
 START_TEST(float_tests) {
   char *str1 = "1.5*2";
-  long double ans = polish(str1);
+  long double ans = polish(str1, NULL);
   ck_assert_float_eq(3, ans);
 }
 
 START_TEST(u_minus) {
   char *str1 = "-2";
-  long double ans = polish(str1);
+  long double ans = polish(str1, NULL);
   ck_assert_float_eq(-2, ans);
 }
 
 START_TEST(easy_trigonometry_tests) {
   char *str1 = "cos(1)";
-  long double ans = polish(str1);
+  long double ans = polish(str1, NULL);
   ck_assert_double_eq_tol(cos(1), ans, 1e-7);
 
   char *str2 = "sin(1)";
-  ans = polish(str2);
+  ans = polish(str2, NULL);
   ck_assert_double_eq_tol(sin(1), ans, 1e-7);
 
   char *str3 = "tan(1)";
-  ans = polish(str3);
+  ans = polish(str3, NULL);
   ck_assert_double_eq_tol(tan(1), ans, 1e-7);
 
   char *str4 = "acos(1)";
-  ans = polish(str4);
+  ans = polish(str4, NULL);
   ck_assert_double_eq_tol(acos(1), ans, 1e-7);
 
   char *str5 = "asin(1)";
-  ans = polish(str5);
+  ans = polish(str5, NULL);
   ck_assert_double_eq_tol(asin(1), ans, 1e-7);
 
   char *str6 = "atan(1)";
-  ans = polish(str6);
+  ans = polish(str6, NULL);
   ck_assert_double_eq_tol(atan(1), ans, 1e-7);
 }
 

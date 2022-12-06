@@ -14,7 +14,7 @@ int is_number(char *ptr) {
   return flag;
 }
 
-long double polish(char *str) {
+long double polish(char *str, long double *x) {
   char *first_arg = NULL;
   char *second_arg = NULL;
   char *third_arg = NULL;
