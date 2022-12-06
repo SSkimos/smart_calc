@@ -14,6 +14,80 @@ int is_number(char *ptr) {
   return flag;
 }
 
+long double unary_calc(long double a, char *second_arg, long double answer, int flag) {
+  if (strcmp("v", second_arg) == 0) {
+    if (!flag) {
+      answer = sqrt(answer);
+    } else {
+      answer = sqrt(a);
+    }
+  }
+  if (strcmp("l", second_arg) == 0) {
+    if (!flag) {
+      answer = log(answer);
+    } else {
+      answer = log(a);
+    }
+  }
+  if (strcmp("L", second_arg) == 0) {
+    if (!flag) {
+      answer = log10(answer);
+    } else {
+      answer = log10(a);
+    }
+  }
+  if (strcmp("s", second_arg) == 0) {
+    if (!flag) {
+      answer = sin(answer);
+    } else {
+      answer = sin(a);
+    }
+  }
+  if (strcmp("c", second_arg) == 0) {
+    if (!flag) {
+      answer = cos(answer);
+    } else {
+      answer = cos(a);
+    }
+  }
+  if (strcmp("s", second_arg) == 0) {
+    if (!flag) {
+      answer = sin(answer);
+    } else {
+      answer = sin(a);
+    }
+  }
+  if (strcmp("t", second_arg) == 0) {
+    if (!flag) {
+      answer = tan(answer);
+    } else {
+      answer = tan(a);
+    }
+  }
+  if (strcmp("C", second_arg) == 0) {
+    if (!flag) {
+      answer = acos(answer);
+    } else {
+      answer = acos(a);
+    }
+  }
+  if (strcmp("S", second_arg) == 0) {
+    if (!flag) {
+      answer = asin(answer);
+    } else {
+      answer = asin(a);
+    }
+  }
+  if (strcmp("T", second_arg) == 0) {
+    if (!flag) {
+      answer = atan(answer);
+    } else {
+      answer = atan(a);
+    }
+  }
+  return answer;
+}
+
 long double polish(char *str, long double *x) {
   char *first_arg = NULL;
   char *second_arg = NULL;
@@ -37,7 +111,6 @@ long double polish(char *str, long double *x) {
       second_arg = pop(&stack);
       // unary minus
       if (strcmp("-", second_arg) == 0) {
-        printf("huy\n\n\n\n");
         char *ptr = NULL;
         a = strtold(first_arg, &ptr);
         answer = 0 - a;
@@ -53,128 +126,66 @@ long double polish(char *str, long double *x) {
     }
     if (is_number(second_arg)) {
       if (peek(&stack)) {
+        // give operation
         third_arg = pop(&stack);
 //        printf("th = %s\n", third_arg);
       }
       char *ptr = NULL;
       a = strtold(first_arg, &ptr);
       b = strtold(second_arg, &ptr);
-      if (strcmp("+", third_arg) == 0) {
-        if (!flag) {
-          answer = answer + a;
-        } else {
-          answer = answer + a + b;
-        }
-      }
-      if (strcmp("^", third_arg) == 0) {
-        if (!flag) {
-          answer = pow(answer, a);
-        } else {
-          answer = answer + pow(a, b);
-        }
-      }
-      if (strcmp("-", third_arg) == 0) {
-        if (!flag) {
-          answer = answer - a-b;
-        } else {
-          answer = answer + (a-b);
-        }
-      }
-      if (strcmp("*", third_arg) == 0) {
-        if (!flag) {
-          answer = answer * a;
-        } else {
-          answer = answer + (a * b);
-        }
-      }
-      if (strcmp("/", third_arg) == 0) {
-        if (!flag) {
-          answer = (answer / a);
-        } else {
-          answer = (answer + (a/b));
-        }
-      }
-      if (strcmp("%", third_arg) == 0) {
-        if (!flag) {
-          answer = (fmod(answer, a));
-        } else {
-          answer = (answer + (fmod(a, b)));
-        }
-      }
+      answer = binary_calc(a, b, third_arg, answer, flag);
       flag = 0;
     } else {
       char *ptr = NULL;
       a = strtold(first_arg, &ptr);
-      if (strcmp("v", second_arg) == 0) {
-        if (!flag) {
-          answer = sqrt(answer);
-        } else {
-          answer = sqrt(a);
-        }
-      }
-      if (strcmp("l", second_arg) == 0) {
-        if (!flag) {
-          answer = log(answer);
-        } else {
-          answer = log(a);
-        }
-      }
-      if (strcmp("L", second_arg) == 0) {
-        if (!flag) {
-          answer = log10(answer);
-        } else {
-          answer = log10(a);
-        }
-      }
-      if (strcmp("s", second_arg) == 0) {
-        if (!flag) {
-          answer = sin(answer);
-        } else {
-          answer = sin(a);
-        }
-      }
-      if (strcmp("c", second_arg) == 0) {
-        if (!flag) {
-          answer = cos(answer);
-        } else {
-          answer = cos(a);
-        }
-      }
-      if (strcmp("s", second_arg) == 0) {
-        if (!flag) {
-          answer = sin(answer);
-        } else {
-          answer = sin(a);
-        }
-      }
-      if (strcmp("t", second_arg) == 0) {
-        if (!flag) {
-          answer = tan(answer);
-        } else {
-          answer = tan(a);
-        }
-      }
-      if (strcmp("C", second_arg) == 0) {
-        if (!flag) {
-          answer = acos(answer);
-        } else {
-          answer = acos(a);
-        }
-      }
-      if (strcmp("S", second_arg) == 0) {
-        if (!flag) {
-          answer = asin(answer);
-        } else {
-          answer = asin(a);
-        }
-      }
-      if (strcmp("T", second_arg) == 0) {
-        if (!flag) {
-          answer = atan(answer);
-        } else {
-          answer = atan(a);
-        }
-      }
+      answer = unary_calc(a, second_arg, answer, flag);
+      flag = 0;
+    }
+  }
+  return answer;
+}
+
+long double binary_calc(long double a, long double b, char *third_arg, long double answer, int flag) {
+  if (strcmp("+", third_arg) == 0) {
+    if (!flag) {
+      answer = answer + a;
+    } else {
+      answer = answer + a + b;
+    }
+  }
+  if (strcmp("^", third_arg) == 0) {
+    if (!flag) {
+      answer = pow(answer, a);
+    } else {
+      answer = answer + pow(a, b);
+    }
+  }
+  if (strcmp("-", third_arg) == 0) {
+    if (!flag) {
+      answer = answer - a-b;
+    } else {
+      answer = answer + (a-b);
+    }
+  }
+  if (strcmp("*", third_arg) == 0) {
+    if (!flag) {
+      answer = answer * a;
+    } else {
+      answer = answer + (a * b);
+    }
+  }
+  if (strcmp("/", third_arg) == 0) {
+    if (!flag) {
+      answer = (answer / a);
+    } else {
+      answer = (answer + (a/b));
+    }
+  }
+  if (strcmp("%", third_arg) == 0) {
+    if (!flag) {
+      answer = (fmod(answer, a));
+    } else {
+      answer = (answer + (fmod(a, b)));
     }
   }
   return answer;

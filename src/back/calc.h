@@ -29,5 +29,7 @@ struct s21_stack *parser(struct s21_stack *output_stack, char *current_str);
 
 //polish methods
 long double polish(char *str, long double *x);
+long double binary_calc(long double a, long double b,
+                              char *third_arg, long double answer, int flag);
 
 #endif
