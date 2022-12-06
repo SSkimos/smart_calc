@@ -29,7 +29,6 @@ long double polish(char *str, long double *x) {
   revert_stack(&buffer, &stack);
 
   while (peek(&stack)) {
-//    printf("ans = %Lf\n", answer);
     if (peek(&stack)) {
       first_arg = pop(&stack);
     }
@@ -50,15 +49,25 @@ long double polish(char *str, long double *x) {
       }
       flag = 1;
     }
-    if (is_number(second_arg)) {
+    if (is_number(second_arg) || (strcmp("x", first_arg) == 0 || strcmp("x", second_arg) == 0)) {
       if (peek(&stack)) {
         // give operation
         third_arg = pop(&stack);
 //        printf("th = %s\n", third_arg);
       }
       char *ptr = NULL;
-      a = strtold(first_arg, &ptr);
-      b = strtold(second_arg, &ptr);
+      if (strcmp("x", first_arg) != 0 && strcmp("x", second_arg) != 0) {
+        a = strtold(first_arg, &ptr);
+        b = strtold(second_arg, &ptr);
+      } else {
+        if (strcmp("x", first_arg)) {
+          a = strtold(first_arg, &ptr);
+          b = *x;
+        } else {
+          a = *x;
+          b = strtold(second_arg, &ptr);
+        }
+      }
       answer = binary_calc(a, b, third_arg, answer, flag);
       flag = 0;
     } else {

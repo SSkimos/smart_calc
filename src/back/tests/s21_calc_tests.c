@@ -194,6 +194,13 @@ START_TEST(easy_trigonometry_tests) {
   ck_assert_double_eq_tol(atan(1), ans, 1e-7);
 }
 
+START_TEST(x_val) {
+  char *str1 = "2+x";
+  long double x = 3;
+  long double ans = polish(str1, &x);
+  ck_assert_float_eq(5, ans);
+}
+
 Suite *s21_calc_suite(void) {
   Suite *suite;
 
@@ -212,6 +219,8 @@ Suite *s21_calc_suite(void) {
   tcase_add_test(tcase_core, u_minus);
 
   tcase_add_test(tcase_core, easy_trigonometry_tests);
+
+  tcase_add_test(tcase_core, x_val);
 
   suite_add_tcase(suite, tcase_core);
 

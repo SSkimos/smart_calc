@@ -51,7 +51,7 @@ struct s21_stack *parser(struct s21_stack *output_stack, char *current_str) {
         number = NULL;
       }
     }
-    if (current_str[i] == 'x') { push(&tmp_stack, "x"); }
+    if (current_str[i] == 'x') { push(output_stack, "x"); }
     if (current_str[i] == '(') { push(&tmp_stack, "("); }
     if (current_str[i] == ')') { relocate_values(&tmp_stack, output_stack, ZERO_LEVEL); }
     if (current_str[i] == '+') { relocate_values(&tmp_stack, output_stack, FIRST_LEVEL); push(&tmp_stack, "+"); }
