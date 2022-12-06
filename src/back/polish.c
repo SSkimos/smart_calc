@@ -14,80 +14,6 @@ int is_number(char *ptr) {
   return flag;
 }
 
-long double unary_calc(long double a, char *second_arg, long double answer, int flag) {
-  if (strcmp("v", second_arg) == 0) {
-    if (!flag) {
-      answer = sqrt(answer);
-    } else {
-      answer = sqrt(a);
-    }
-  }
-  if (strcmp("l", second_arg) == 0) {
-    if (!flag) {
-      answer = log(answer);
-    } else {
-      answer = log(a);
-    }
-  }
-  if (strcmp("L", second_arg) == 0) {
-    if (!flag) {
-      answer = log10(answer);
-    } else {
-      answer = log10(a);
-    }
-  }
-  if (strcmp("s", second_arg) == 0) {
-    if (!flag) {
-      answer = sin(answer);
-    } else {
-      answer = sin(a);
-    }
-  }
-  if (strcmp("c", second_arg) == 0) {
-    if (!flag) {
-      answer = cos(answer);
-    } else {
-      answer = cos(a);
-    }
-  }
-  if (strcmp("s", second_arg) == 0) {
-    if (!flag) {
-      answer = sin(answer);
-    } else {
-      answer = sin(a);
-    }
-  }
-  if (strcmp("t", second_arg) == 0) {
-    if (!flag) {
-      answer = tan(answer);
-    } else {
-      answer = tan(a);
-    }
-  }
-  if (strcmp("C", second_arg) == 0) {
-    if (!flag) {
-      answer = acos(answer);
-    } else {
-      answer = acos(a);
-    }
-  }
-  if (strcmp("S", second_arg) == 0) {
-    if (!flag) {
-      answer = asin(answer);
-    } else {
-      answer = asin(a);
-    }
-  }
-  if (strcmp("T", second_arg) == 0) {
-    if (!flag) {
-      answer = atan(answer);
-    } else {
-      answer = atan(a);
-    }
-  }
-  return answer;
-}
-
 long double polish(char *str, long double *x) {
   char *first_arg = NULL;
   char *second_arg = NULL;
@@ -147,46 +73,42 @@ long double polish(char *str, long double *x) {
 
 long double binary_calc(long double a, long double b, char *third_arg, long double answer, int flag) {
   if (strcmp("+", third_arg) == 0) {
-    if (!flag) {
-      answer = answer + a;
-    } else {
-      answer = answer + a + b;
-    }
+    answer = flag ? answer + a + b : answer + a;
+  } else if (strcmp("^", third_arg) == 0) {
+    answer = flag ? answer + pow(a, b) : pow(answer, a);
+  } else if (strcmp("-", third_arg) == 0) {
+    answer = flag ? answer + (a-b) : answer - a-b;
+  } else if (strcmp("*", third_arg) == 0) {
+    answer = flag ? answer + (a * b) : answer * a;
+  } else if (strcmp("/", third_arg) == 0) {
+    answer = flag ? (answer + (a/b)) : (answer / a);
+  } else if (strcmp("%", third_arg) == 0) {
+    answer = flag ? answer + (fmod(a, b)) : fmod(answer, a);
   }
-  if (strcmp("^", third_arg) == 0) {
-    if (!flag) {
-      answer = pow(answer, a);
-    } else {
-      answer = answer + pow(a, b);
-    }
-  }
-  if (strcmp("-", third_arg) == 0) {
-    if (!flag) {
-      answer = answer - a-b;
-    } else {
-      answer = answer + (a-b);
-    }
-  }
-  if (strcmp("*", third_arg) == 0) {
-    if (!flag) {
-      answer = answer * a;
-    } else {
-      answer = answer + (a * b);
-    }
-  }
-  if (strcmp("/", third_arg) == 0) {
-    if (!flag) {
-      answer = (answer / a);
-    } else {
-      answer = (answer + (a/b));
-    }
-  }
-  if (strcmp("%", third_arg) == 0) {
-    if (!flag) {
-      answer = (fmod(answer, a));
-    } else {
-      answer = (answer + (fmod(a, b)));
-    }
+  return answer;
+}
+
+long double unary_calc(long double a, char *second_arg, long double answer, int flag) {
+  if (strcmp("v", second_arg) == 0) {
+    answer = flag ? sqrt(a) : sqrt(answer);
+  } else if (strcmp("l", second_arg) == 0) {
+    answer = flag ? log(a) : log(answer);
+  } else if (strcmp("L", second_arg) == 0) {
+    answer = flag ? log10(a) : log10(answer);
+  } else if (strcmp("s", second_arg) == 0) {
+    answer = flag ? sin(a) : sin(answer);
+  } else if (strcmp("c", second_arg) == 0) {
+    answer = flag ? cos(a) : cos(answer);
+  } else if (strcmp("s", second_arg) == 0) {
+    answer = flag ? sin(a) : sin(answer);
+  } else if (strcmp("t", second_arg) == 0) {
+    answer = flag ? tan(a) : tan(answer);
+  } else if (strcmp("C", second_arg) == 0) {
+    answer = flag ? acos(a) : acos(answer);
+  } else if (strcmp("S", second_arg) == 0) {
+    answer = flag ? asin(a) : asin(answer);
+  } else if (strcmp("T", second_arg) == 0) {
+    answer = flag ? atan(a) : atan(answer);
   }
   return answer;
 }
