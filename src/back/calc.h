@@ -17,6 +17,19 @@ typedef struct s21_stack {
     int size;
 } s21_stack;
 
+typedef struct s21_credit_input {
+    long double sum;
+    long double term;
+    long double percent;
+    int type;
+} s21_credit_input;
+
+typedef struct s21_credit_out {
+    long double monthly_payment;
+    long double interest_charges;
+    long double dept;
+} s21_credit_out;
+
 // stack methods
 void push(struct s21_stack *stack, char *value);
 char *pop(struct s21_stack *stack);
@@ -32,5 +45,8 @@ long double polish(char *str, long double *x);
 long double binary_calc(long double a, long double b,
                               char *third_arg, long double answer, int flag);
 long double unary_calc(long double a, char *second_arg, long double answer, int flag);
+
+// credit calc
+void credit_calc(struct s21_credit_input *credit_input, struct s21_credit_out *credit_out);
 
 #endif

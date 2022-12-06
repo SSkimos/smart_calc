@@ -116,6 +116,17 @@ START_TEST(lg1) {
   ck_assert_float_eq(fabsl(ans) - 1 < 1e-7, 0);
 }
 
+START_TEST(credit) {
+  struct s21_credit_input input = {0};
+  input.sum = 20000.0;
+  input.term = 36.0;
+  input.percent = 12.0;
+  input.type = 1;
+  struct s21_credit_out output = {0};
+  credit_calc(&input, &output);
+  ck_assert_double_eq_tol(output.monthly_payment, 664.29, 1e-7);
+}
+
 Suite *s21_calc_suite(void) {
   Suite *suite;
 
@@ -134,6 +145,9 @@ Suite *s21_calc_suite(void) {
   tcase_add_test(tcase_core, lg1);
   tcase_add_test(tcase_core, log1);
   tcase_add_test(tcase_core, one_arg);
+
+
+  tcase_add_test(tcase_core, credit);
 
   suite_add_tcase(suite, tcase_core);
 

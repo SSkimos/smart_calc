@@ -15,7 +15,7 @@ s21_stack.a: $(STACK_O)
 	ranlib $@
 
 test: s21_stack.a
-	$(CC) tests/s21_calc_tests.c parser.c polish.c $(INC_CHECK) $(CFLAGS) $(LFLAGS) $(SANITIZE) --coverage -lcheck s21_stack.a -o test.out
+	$(CC) tests/s21_calc_tests.c parser.c polish.c credit.c $(INC_CHECK) $(CFLAGS) $(LFLAGS) $(SANITIZE) --coverage -lcheck s21_stack.a -o test.out
 	./test.out
 
 
