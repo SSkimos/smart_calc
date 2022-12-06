@@ -106,8 +106,18 @@ long double unary_calc(long double a, char *second_arg, long double answer, int 
   if (strcmp("v", second_arg) == 0) {
     answer = flag ? sqrt(a) : sqrt(answer);
   } else if (strcmp("l", second_arg) == 0) {
+    if (fabsl(a) - 1 < 1e-7 && answer == 0) {
+      return NAN;
+    } else if (fabsl(answer) - 1 < 1e-7 && a == 0) {
+      return NAN;
+    }
     answer = flag ? log(a) : log(answer);
   } else if (strcmp("L", second_arg) == 0) {
+    if (fabsl(a) - 1 < 1e-7 && answer == 0) {
+      return NAN;
+    } else if (fabsl(answer) - 1 < 1e-7 && a == 0) {
+      return NAN;
+    }
     answer = flag ? log10(a) : log10(answer);
   } else if (strcmp("s", second_arg) == 0) {
     answer = flag ? sin(a) : sin(answer);

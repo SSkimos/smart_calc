@@ -104,6 +104,18 @@ START_TEST(one_arg) {
   ck_assert_float_eq(200, ans);
 }
 
+START_TEST(log1) {
+  char *str1 = "log(1)";
+  long double ans = polish(str1, NULL);
+  ck_assert_float_eq(fabsl(ans) - 1 < 1e-7, 0);
+}
+
+START_TEST(lg1) {
+  char *str1 = "log(1)";
+  long double ans = polish(str1, NULL);
+  ck_assert_float_eq(fabsl(ans) - 1 < 1e-7, 0);
+}
+
 Suite *s21_calc_suite(void) {
   Suite *suite;
 
@@ -119,6 +131,8 @@ Suite *s21_calc_suite(void) {
   tcase_add_test(tcase_core, x_val);
 
   tcase_add_test(tcase_core, exceptions_test);
+  tcase_add_test(tcase_core, lg1);
+  tcase_add_test(tcase_core, log1);
   tcase_add_test(tcase_core, one_arg);
 
   suite_add_tcase(suite, tcase_core);
