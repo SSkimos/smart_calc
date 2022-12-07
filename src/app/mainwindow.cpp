@@ -7,6 +7,10 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
 
+
+    graph *a = new graph();
+    connect(this, &MainWindow::signal, a, &graph::slot);
+
     connect(ui->pushButton_0, SIGNAL(clicked()), this, SLOT(add_value()));
     connect(ui->pushButton_1, SIGNAL(clicked()), this, SLOT(add_value()));
     connect(ui->pushButton_2, SIGNAL(clicked()), this, SLOT(add_value()));
@@ -50,8 +54,6 @@ MainWindow::MainWindow(QWidget *parent)
 MainWindow::~MainWindow()
 {
     delete ui;
-    graph *a = new graph();
-    connect(this, &MainWindow::signal, a, &graph::slot);
 }
 
 
