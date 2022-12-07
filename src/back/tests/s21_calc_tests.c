@@ -96,6 +96,10 @@ START_TEST(exceptions_test) {
   char *str1 = "1000)";
   double ans = polish(str1, NULL);
   ck_assert_float_eq(0, ans);
+
+  char *str2 = "1000+900";
+  ans = polish(str2, NULL);
+  ck_assert_float_eq(1900, ans);
 }
 
 START_TEST(one_arg) {

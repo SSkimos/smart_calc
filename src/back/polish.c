@@ -8,7 +8,7 @@ void revert_stack(struct s21_stack *old, struct s21_stack *new) {
 
 int is_number(char *ptr) {
   int flag = 0;
-  if ((ptr[0] - '0' > 0 && ptr[0] - '0' < 9) || ptr[0] == '.') {
+  if ((ptr[0] - '0' >= 0 && ptr[0] - '0' <= 9)) {
     flag = 1;
   }
   return flag;
