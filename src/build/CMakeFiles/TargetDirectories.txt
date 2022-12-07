@@ -1,4 +1,0 @@
-/Users/sskimos/school21/smart_calc/src/build/CMakeFiles/test_calc.dir
-/Users/sskimos/school21/smart_calc/src/build/CMakeFiles/edit_cache.dir
-/Users/sskimos/school21/smart_calc/src/build/CMakeFiles/rebuild_cache.dir
-/Users/sskimos/school21/smart_calc/src/build/CMakeFiles/test_calc_autogen.dir
