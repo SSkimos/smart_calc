@@ -20,8 +20,8 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
-private slots:
-    void on_pushButton_build_clicked();
+signals:
+     void signal(QString str, double xmin, double xmax, double ymin, double ymax);
 
 private:
     Ui::MainWindow *ui;
@@ -31,5 +31,6 @@ private slots:
     void add_value();
     void aboba();
     void clear();
+    void on_pushButton_build_clicked();
 };
 #endif // MAINWINDOW_H

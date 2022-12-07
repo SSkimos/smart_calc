@@ -50,6 +50,8 @@ MainWindow::MainWindow(QWidget *parent)
 MainWindow::~MainWindow()
 {
     delete ui;
+    graph *a = new graph();
+    connect(this, &MainWindow::signal, a, &graph::slot);
 }
 
 
@@ -62,9 +64,9 @@ void MainWindow::aboba()
 
     QString x_val;
     x_val = ui->lineEdit_x_val->text();
-    long double x = ui->lineEdit_x_val->text().toDouble();
+    double x = ui->lineEdit_x_val->text().toDouble();
 
-    long double value = polish(buffer, &x);
+    double value = polish(buffer, &x);
     QString toStr = QString::number(value,'g',6);
     ui->lineEdit_ans->setText(toStr);
 
@@ -93,6 +95,9 @@ void MainWindow::add_value()
 
 void MainWindow::on_pushButton_build_clicked()
 {
-    my_graph.show();
+    emit signal(ui->lineEdit_str->text(), ui->lineEdit_x_min->text().toDouble(),
+                  ui->lineEdit_x_max->text().toDouble(), ui->lineEdit_y_min->text().toDouble(),
+                  ui->lineEdit_y_max->text().toDouble());
+     my_graph.show();
 }
 

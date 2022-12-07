@@ -3,7 +3,7 @@
 
 START_TEST(primitive_operations) {
   char *str1 = "2+2";
-  long double ans = polish(str1, NULL);
+  double ans = polish(str1, NULL);
   ck_assert_float_eq(4, ans);
 
   char *str2 = "4-2";
@@ -49,19 +49,19 @@ START_TEST(primitive_operations) {
 
 START_TEST(float_tests) {
   char *str1 = "1.5*2";
-  long double ans = polish(str1, NULL);
+  double ans = polish(str1, NULL);
   ck_assert_float_eq(3, ans);
 }
 
 START_TEST(u_minus) {
   char *str1 = "-2";
-  long double ans = polish(str1, NULL);
+  double ans = polish(str1, NULL);
   ck_assert_float_eq(-2, ans);
 }
 
 START_TEST(primitive_trigonometry_tests) {
   char *str1 = "cos(1)";
-  long double ans = polish(str1, NULL);
+  double ans = polish(str1, NULL);
   ck_assert_double_eq_tol(cos(1), ans, 1e-7);
 
   char *str2 = "sin(1)";
@@ -87,33 +87,33 @@ START_TEST(primitive_trigonometry_tests) {
 
 START_TEST(x_val) {
   char *str1 = "2+x";
-  long double x = 3;
-  long double ans = polish(str1, &x);
+  double x = 3;
+  double ans = polish(str1, &x);
   ck_assert_float_eq(5, ans);
 }
 
 START_TEST(exceptions_test) {
   char *str1 = "1000)";
-  long double ans = polish(str1, NULL);
+  double ans = polish(str1, NULL);
   ck_assert_float_eq(0, ans);
 }
 
 START_TEST(one_arg) {
   char *str2 = "200";
-  long double ans = polish(str2, NULL);
+  double ans = polish(str2, NULL);
   ck_assert_float_eq(200, ans);
 }
 
 START_TEST(log1) {
   char *str1 = "log(1)";
-  long double ans = polish(str1, NULL);
-  ck_assert_float_eq(fabsl(ans) - 1 < 1e-7, 0);
+  double ans = polish(str1, NULL);
+  ck_assert_float_eq(fabs(ans) - 1 < 1e-7, 0);
 }
 
 START_TEST(lg1) {
   char *str1 = "log(1)";
-  long double ans = polish(str1, NULL);
-  ck_assert_float_eq(fabsl(ans) - 1 < 1e-7, 0);
+  double ans = polish(str1, NULL);
+  ck_assert_float_eq(fabs(ans) - 1 < 1e-7, 0);
 }
 
 START_TEST(credit) {

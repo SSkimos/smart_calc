@@ -2,6 +2,10 @@
 #define GRAPH_H
 
 #include <QWidget>
+#include <QVector>
+extern "C" {
+    #include "../back/calc.h"
+}
 
 namespace Ui {
 class graph;
@@ -15,8 +19,13 @@ public:
     explicit graph(QWidget *parent = nullptr);
     ~graph();
 
+public slots:
+    void slot(QString str, double xmin, double xmax, double ymin, double ymax);
+
 private:
     Ui::graph *ui;
+
+    QVector <double> x, y;
 };
 
 #endif // GRAPH_H

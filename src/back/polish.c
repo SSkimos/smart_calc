@@ -14,13 +14,13 @@ int is_number(char *ptr) {
   return flag;
 }
 
-long double polish(char *str, long double *x) {
+double polish(char *str, double *x) {
   char *first_arg = NULL;
   char *second_arg = NULL;
   char *third_arg = NULL;
-  long double a = 0.0;
-  long double b = 0.0;
-  long double answer = 0.0;
+  double a = 0.0;
+  double b = 0.0;
+  double answer = 0.0;
   int flag = 0;
 
   struct s21_stack buffer = make_stack();
@@ -85,7 +85,7 @@ long double polish(char *str, long double *x) {
   return answer;
 }
 
-long double binary_calc(long double a, long double b, char *third_arg, long double answer, int flag) {
+double binary_calc(double a, double b, char *third_arg, double answer, int flag) {
   if (strcmp("+", third_arg) == 0) {
     answer = flag ? answer + a + b : answer + a;
   } else if (strcmp("^", third_arg) == 0) {
@@ -102,20 +102,20 @@ long double binary_calc(long double a, long double b, char *third_arg, long doub
   return answer;
 }
 
-long double unary_calc(long double a, char *second_arg, long double answer, int flag) {
+double unary_calc(double a, char *second_arg, double answer, int flag) {
   if (strcmp("v", second_arg) == 0) {
     answer = flag ? sqrt(a) : sqrt(answer);
   } else if (strcmp("l", second_arg) == 0) {
-    if (fabsl(a) - 1 < 1e-7 && answer == 0) {
+    if (fabs(a) - 1 < 1e-7 && answer == 0) {
       return NAN;
-    } else if (fabsl(answer) - 1 < 1e-7 && a == 0) {
+    } else if (fabs(answer) - 1 < 1e-7 && a == 0) {
       return NAN;
     }
     answer = flag ? log(a) : log(answer);
   } else if (strcmp("L", second_arg) == 0) {
-    if (fabsl(a) - 1 < 1e-7 && answer == 0) {
+    if (fabs(a) - 1 < 1e-7 && answer == 0) {
       return NAN;
-    } else if (fabsl(answer) - 1 < 1e-7 && a == 0) {
+    } else if (fabs(answer) - 1 < 1e-7 && a == 0) {
       return NAN;
     }
     answer = flag ? log10(a) : log10(answer);

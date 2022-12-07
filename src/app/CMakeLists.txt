@@ -26,6 +26,8 @@ set(PROJECT_SOURCES
         graph.h
         graph.cpp
         graph.ui
+        qcustomplot.h
+        qcustomplot.cpp
         ../back/calc.h
         ../back/parser.c
         ../back/polish.c
@@ -56,6 +58,7 @@ else()
 endif()
 
 target_link_libraries(test_calc PRIVATE Qt${QT_VERSION_MAJOR}::Widgets)
+target_link_libraries(test_calc PRIVATE Qt${QT_VERSION_MAJOR}::PrintSupport)
 
 set_target_properties(test_calc PROPERTIES
     MACOSX_BUNDLE_GUI_IDENTIFIER my.example.com
