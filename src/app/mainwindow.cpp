@@ -17,6 +17,7 @@ MainWindow::MainWindow(QWidget *parent)
     connect(ui->pushButton_7, SIGNAL(clicked()), this, SLOT(add_value()));
     connect(ui->pushButton_8, SIGNAL(clicked()), this, SLOT(add_value()));
     connect(ui->pushButton_9, SIGNAL(clicked()), this, SLOT(add_value()));
+    connect(ui->pushButton_x, SIGNAL(clicked()), this, SLOT(add_value()));
 
     connect(ui->pushButton_LBr, SIGNAL(clicked()), this, SLOT(add_value()));
     connect(ui->pushButton_RBr, SIGNAL(clicked()), this, SLOT(add_value()));
@@ -55,12 +56,17 @@ MainWindow::~MainWindow()
 void MainWindow::aboba()
 {
     QString old_label;
-    old_label = ui->label_str->text();
+    old_label = ui->lineEdit_str->text();
     QByteArray ba = old_label.toLocal8Bit();
     char *buffer = ba.data();
-    long double value = polish(buffer);
+
+    QString x_val;
+    x_val = ui->lineEdit_x_val->text();
+    long double x = ui->lineEdit_x_val->text().toDouble();
+
+    long double value = polish(buffer, &x);
     QString toStr = QString::number(value,'g',6);
-    ui->label_show->setText(toStr);
+    ui->lineEdit_ans->setText(toStr);
 
 }
 
@@ -68,19 +74,25 @@ void MainWindow::clear()
 {
     QString first_label;
     first_label = "";
-    ui->label_str->setText(first_label);
+    ui->lineEdit_str->setText(first_label);
 
     QString second_label;
     second_label = "";
-    ui->label_show->setText(second_label);
+    ui->lineEdit_ans->setText(second_label);
 }
 
 void MainWindow::add_value()
 {
     QPushButton *button = (QPushButton *)sender();
     QString new_label;
-    new_label = ui->label_str->text() + button->text();
+    new_label = ui->lineEdit_str->text() + button->text();
 
-    ui->label_str->setText(new_label);
+    ui->lineEdit_str->setText(new_label);
+}
+
+
+void MainWindow::on_pushButton_build_clicked()
+{
+    my_graph.show();
 }
 

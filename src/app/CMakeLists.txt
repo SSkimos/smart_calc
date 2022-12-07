@@ -23,6 +23,9 @@ set(PROJECT_SOURCES
         mainwindow.cpp
         mainwindow.h
         mainwindow.ui
+        graph.h
+        graph.cpp
+        graph.ui
         ../back/calc.h
         ../back/parser.c
         ../back/polish.c
