@@ -25,7 +25,7 @@ signals:
 
 private:
     Ui::MainWindow *ui;
-    graph my_graph;
+    graph *my_graph;
 
 private slots:
     void add_value();

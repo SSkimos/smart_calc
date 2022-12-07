@@ -24,13 +24,11 @@ graph::~graph()
 }
 
 void graph::slot(QString str, double xmin, double xmax, double ymin, double ymax) {
-//  x.clear();
-//  y.clear();
-//  ui->widget->xAxis->setRange(xmin, xmax);
-//  ui->widget->yAxis->setRange(ymin, ymax);
+  x.clear();
+  y.clear();
 
-//  QByteArray ba = str.toLocal8Bit();
-//  char *str1 = ba.data();
+  QByteArray ba = str.toLocal8Bit();
+  char *str1 = ba.data();
 
 //  int N = 500;
 //  int h = (xmax - xmin)/N;
@@ -49,13 +47,13 @@ void graph::slot(QString str, double xmin, double xmax, double ymin, double ymax
 //  ui->widget->graph(0)->addData(x, y);
 //  ui->widget->replot();
     double h = 0.1;
-    ui->widget->xAxis->setRange(-4, 4);
-    ui->widget->yAxis->setRange(0, 9);
+    ui->widget->xAxis->setRange(xmin, xmax);
+    ui->widget->yAxis->setRange(ymin, ymax);
 
-    double X = -3;
-    for (X = -3; X <= 3 + 0.1; X+= 0.1) {
+    double X = ymin;
+    for (X = xmin; X <= xmax; X += 0.001) {
         x.push_back(X);
-        y.push_back(X*X);
+        y.push_back(polish(str1, &X));
     }
     ui->widget->addGraph();
     ui->widget->graph(0)->addData(x, y);

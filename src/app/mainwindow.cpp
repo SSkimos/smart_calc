@@ -7,6 +7,9 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
 
+    delete my_graph;
+    my_graph = new graph();
+
     connect(ui->pushButton_0, SIGNAL(clicked()), this, SLOT(add_value()));
     connect(ui->pushButton_1, SIGNAL(clicked()), this, SLOT(add_value()));
     connect(ui->pushButton_2, SIGNAL(clicked()), this, SLOT(add_value()));
@@ -68,7 +71,6 @@ void MainWindow::aboba()
     double value = polish(buffer, &x);
     QString toStr = QString::number(value,'g',6);
     ui->lineEdit_ans->setText(toStr);
-
 }
 
 void MainWindow::clear()
@@ -94,11 +96,10 @@ void MainWindow::add_value()
 
 void MainWindow::on_pushButton_build_clicked()
 {
-    graph *a = new graph();
-    connect(this, &MainWindow::signal, a, &graph::slot);
+    connect(this, &MainWindow::signal, my_graph, &graph::slot);
     emit signal(ui->lineEdit_str->text(), ui->lineEdit_x_min->text().toDouble(),
                   ui->lineEdit_x_max->text().toDouble(), ui->lineEdit_y_min->text().toDouble(),
                   ui->lineEdit_y_max->text().toDouble());
-     my_graph.show();
+    my_graph->show();
 }
 
