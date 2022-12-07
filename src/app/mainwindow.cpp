@@ -45,6 +45,7 @@ MainWindow::MainWindow(QWidget *parent)
     connect(ui->pushButton_ans, SIGNAL(clicked()), this, SLOT(aboba()));
 
     connect(ui->pushButton_clear, SIGNAL(clicked()), this, SLOT(clear()));
+    connect(ui->pushButton_build, SIGNAL(clicked()), this, SLOT(on_pushButton_build_clicked()));
 }
 
 MainWindow::~MainWindow()
