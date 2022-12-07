@@ -68,20 +68,25 @@ START_TEST(primitive_trigonometry_tests) {
   ans = polish(str2, NULL);
   ck_assert_double_eq_tol(sin(1), ans, 1e-7);
 
-  char *str3 = "tan(1)";
-  ans = polish(str3, NULL);
+  char *str3 = "sin(x)";
+  double num = 1;
+  ans = polish(str3, &num);
+  ck_assert_double_eq_tol(sin(1), ans, 1e-7);
+
+  char *str4 = "tan(1)";
+  ans = polish(str4, NULL);
   ck_assert_double_eq_tol(tan(1), ans, 1e-7);
 
-  char *str4 = "acos(1)";
-  ans = polish(str4, NULL);
+  char *str5 = "acos(1)";
+  ans = polish(str5, NULL);
   ck_assert_double_eq_tol(acos(1), ans, 1e-7);
 
-  char *str5 = "asin(1)";
-  ans = polish(str5, NULL);
+  char *str6 = "asin(1)";
+  ans = polish(str6, NULL);
   ck_assert_double_eq_tol(asin(1), ans, 1e-7);
 
-  char *str6 = "atan(1)";
-  ans = polish(str6, NULL);
+  char *str7 = "atan(1)";
+  ans = polish(str7, NULL);
   ck_assert_double_eq_tol(atan(1), ans, 1e-7);
 }
 
@@ -131,6 +136,13 @@ START_TEST(credit) {
   ck_assert_double_eq_tol(output.monthly_payment, 664.29, 1e-7);
 }
 
+START_TEST(uniq_case) {
+  char *str1 = "sin(x)";
+  double num = 3;
+  double ans = polish(str1, &num);
+  ck_assert_double_eq_tol(sin(3), ans, 1e-7);
+}
+
 Suite *s21_calc_suite(void) {
   Suite *suite;
 
@@ -150,8 +162,8 @@ Suite *s21_calc_suite(void) {
   tcase_add_test(tcase_core, log1);
   tcase_add_test(tcase_core, one_arg);
 
-
   tcase_add_test(tcase_core, credit);
+//  tcase_add_test(tcase_core, uniq_case);
 
   suite_add_tcase(suite, tcase_core);
 
