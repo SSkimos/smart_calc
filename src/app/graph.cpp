@@ -17,13 +17,13 @@ void graph::slot(QString str, double xmin, double xmax, double ymin, double ymax
 
   QByteArray ba = str.toLocal8Bit();
   char *str1 = ba.data();
-    double h = 0.1;
-    ui->widget->xAxis->setRange(xmin, xmax);
-    ui->widget->yAxis->setRange(ymin, ymax);
+  double h = 0.1;
+  ui->widget->xAxis->setRange(xmin, xmax);
+  ui->widget->yAxis->setRange(ymin, ymax);
 
     double X = ymin;
     for (X = xmin; X <= xmax; X += 0.001) {
-      if (!std::isnan(polish(a,X) && !std::isinf(polish(a,X)))) {
+      if (!std::isnan(polish(str1, &X) && !std::isinf(polish(str1, &X)))) {
         x.push_back(X);
         y.push_back(polish(str1, &X));
       }
