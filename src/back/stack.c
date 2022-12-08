@@ -1,6 +1,6 @@
 #include "calc.h"
 
-void push(struct s21_stack *stack, char* value) {
+void push(struct s21_stack *stack, char *value) {
   if (stack->size == 0) {
     stack->data = calloc(1, sizeof(char *));
   } else if (stack->size >= 1) {
@@ -38,7 +38,7 @@ struct s21_stack make_stack() {
 }
 
 void clear_stack(struct s21_stack *stack) {
-    while (peek(stack) != NULL) {
-        pop(stack);
-    }
+  while (peek(stack) != NULL) {
+    pop(stack);
+  }
 }

@@ -1,17 +1,15 @@
 #include "graph.h"
+
 #include "ui_graph.h"
 
-graph::graph(QWidget *parent) : QWidget(parent), ui(new Ui::graph)
-{
-    ui->setupUi(this);
+graph::graph(QWidget *parent) : QWidget(parent), ui(new Ui::graph) {
+  ui->setupUi(this);
 }
 
-graph::~graph()
-{
-    delete ui;
-}
+graph::~graph() { delete ui; }
 
-void graph::slot(QString str, double xmin, double xmax, double ymin, double ymax) {
+void graph::slot(QString str, double xmin, double xmax, double ymin,
+                 double ymax) {
   x.clear();
   y.clear();
 
@@ -21,14 +19,14 @@ void graph::slot(QString str, double xmin, double xmax, double ymin, double ymax
   ui->widget->xAxis->setRange(xmin, xmax);
   ui->widget->yAxis->setRange(ymin, ymax);
 
-    double X = ymin;
-    for (X = xmin; X <= xmax; X += 0.001) {
-      if (!std::isnan(polish(str1, &X) && !std::isinf(polish(str1, &X)))) {
-        x.push_back(X);
-        y.push_back(polish(str1, &X));
-      }
+  double X = ymin;
+  for (X = xmin; X <= xmax; X += 0.001) {
+    if (!std::isnan(polish(str1, &X) && !std::isinf(polish(str1, &X)))) {
+      x.push_back(X);
+      y.push_back(polish(str1, &X));
     }
-    ui->widget->addGraph();
-    ui->widget->graph(0)->addData(x, y);
-    ui->widget->replot();
+  }
+  ui->widget->addGraph();
+  ui->widget->graph(0)->addData(x, y);
+  ui->widget->replot();
 }

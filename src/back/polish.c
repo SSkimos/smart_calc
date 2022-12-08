@@ -14,28 +14,58 @@ int is_number(char *ptr) {
   return flag;
 }
 
-int is_unary_operand (char *c) {
+int is_unary_operand(char *c) {
   int flag = 0;
-  if (strcmp("v", c) == 0) { flag = 1; }
-  if (strcmp("l", c) == 0) { flag = 1; }
-  if (strcmp("L", c) == 0) { flag = 1; }
-  if (strcmp("s", c) == 0) { flag = 1; }
-  if (strcmp("c", c) == 0) { flag = 1; }
-  if (strcmp("t", c) == 0) { flag = 1; }
-  if (strcmp("S", c) == 0) { flag = 1; }
-  if (strcmp("C", c) == 0) { flag = 1; }
-  if (strcmp("T", c) == 0) { flag = 1; }
+  if (strcmp("v", c) == 0) {
+    flag = 1;
+  }
+  if (strcmp("l", c) == 0) {
+    flag = 1;
+  }
+  if (strcmp("L", c) == 0) {
+    flag = 1;
+  }
+  if (strcmp("s", c) == 0) {
+    flag = 1;
+  }
+  if (strcmp("c", c) == 0) {
+    flag = 1;
+  }
+  if (strcmp("t", c) == 0) {
+    flag = 1;
+  }
+  if (strcmp("S", c) == 0) {
+    flag = 1;
+  }
+  if (strcmp("C", c) == 0) {
+    flag = 1;
+  }
+  if (strcmp("T", c) == 0) {
+    flag = 1;
+  }
   return flag;
 }
 
 int is_binary_operand(char *c) {
   int flag = 0;
-  if (strcmp("+", c) == 0) { flag = 1; }
-  if (strcmp("^", c) == 0) { flag = 1; }
-  if (strcmp("-", c) == 0) { flag = 1; }
-  if (strcmp("*", c) == 0) { flag = 1; }
-  if (strcmp("/", c) == 0) { flag = 1; }
-  if (strcmp("%", c) == 0) { flag = 1; }
+  if (strcmp("+", c) == 0) {
+    flag = 1;
+  }
+  if (strcmp("^", c) == 0) {
+    flag = 1;
+  }
+  if (strcmp("-", c) == 0) {
+    flag = 1;
+  }
+  if (strcmp("*", c) == 0) {
+    flag = 1;
+  }
+  if (strcmp("/", c) == 0) {
+    flag = 1;
+  }
+  if (strcmp("%", c) == 0) {
+    flag = 1;
+  }
   return flag;
 }
 
@@ -58,7 +88,8 @@ double polish(char *str, double *x) {
       zero_arg = pop(&stack);
       if (!peek(&stack)) {
         // one arg case
-        char *ptr = NULL; a = strtold(zero_arg, &ptr);
+        char *ptr = NULL;
+        a = strtold(zero_arg, &ptr);
         answer += a;
         return answer;
       }
@@ -121,17 +152,18 @@ double polish(char *str, double *x) {
   return answer;
 }
 
-double binary_calc(double a, double b, char *third_arg, double answer, int flag) {
+double binary_calc(double a, double b, char *third_arg, double answer,
+                   int flag) {
   if (strcmp("+", third_arg) == 0) {
     answer = flag ? answer + a + b : answer + a;
   } else if (strcmp("^", third_arg) == 0) {
     answer = flag ? answer + pow(a, b) : pow(answer, a);
   } else if (strcmp("-", third_arg) == 0) {
-    answer = flag ? answer + (a-b) : answer - a - b;
+    answer = flag ? answer + (a - b) : answer - a - b;
   } else if (strcmp("*", third_arg) == 0) {
     answer = flag ? answer + (a * b) : answer * a;
   } else if (strcmp("/", third_arg) == 0) {
-    answer = flag ? (answer + (a/b)) : (answer / a);
+    answer = flag ? (answer + (a / b)) : (answer / a);
   } else if (strcmp("%", third_arg) == 0) {
     answer = flag ? answer + (fmod(a, b)) : fmod(answer, a);
   }

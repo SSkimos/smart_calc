@@ -13,21 +13,21 @@
 #define FOURTH_LEVEL 4
 
 typedef struct s21_stack {
-    char **data;
-    int size;
+  char **data;
+  int size;
 } s21_stack;
 
 typedef struct s21_credit_input {
-    double sum;
-    double term;
-    double percent;
-    int type;
+  double sum;
+  double term;
+  double percent;
+  int type;
 } s21_credit_input;
 
 typedef struct s21_credit_out {
-    double monthly_payment;
-    double interest_charges;
-    double dept;
+  double monthly_payment;
+  double interest_charges;
+  double dept;
 } s21_credit_out;
 
 // stack methods
@@ -42,13 +42,14 @@ struct s21_stack *parser(struct s21_stack *output_stack, char *current_str);
 char *find_number(int *i, char *number, char *current_str);
 int check_brackets(char *str);
 
-//polish methods
+// polish methods
 double polish(char *str, double *x);
-double binary_calc(double a, double b,
-                              char *third_arg, double answer, int flag);
+double binary_calc(double a, double b, char *third_arg, double answer,
+                   int flag);
 double unary_calc(double a, char *second_arg, double answer, int flag);
 
 // credit calc
-void credit_calc(struct s21_credit_input *credit_input, struct s21_credit_out *credit_out);
+void credit_calc(struct s21_credit_input *credit_input,
+                 struct s21_credit_out *credit_out);
 
 #endif
