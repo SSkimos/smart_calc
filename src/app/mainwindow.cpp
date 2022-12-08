@@ -61,7 +61,7 @@ void MainWindow::aboba()
 {
     QString old_label;
     old_label = ui->lineEdit_str->text();
-    QByteArray ba = old_label.toLocal8Bit();
+    QByteArray ba = old_label.toLatin1();
     char *buffer = ba.data();
 
     QString x_val;
@@ -69,7 +69,8 @@ void MainWindow::aboba()
     double x = ui->lineEdit_x_val->text().toDouble();
 
     double value = polish(buffer, &x);
-    QString toStr = QString::number(value,'g',6);
+
+    QString toStr = QString().asprintf("%0.6f", value);
     ui->lineEdit_ans->setText(toStr);
 }
 

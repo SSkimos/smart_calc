@@ -137,10 +137,10 @@ START_TEST(credit) {
 }
 
 START_TEST(uniq_case) {
-  char *str1 = "sin(x)";
-  double num = 3;
-  double ans = polish(str1, &num);
-  ck_assert_double_eq_tol(sin(3), ans, 1e-7);
+  char *str1 = "22+0.3";
+  double ans = polish(str1, NULL);
+  printf("%f\n", ans);
+  ck_assert_double_eq_tol(22.3, ans, 1e-7);
 }
 
 Suite *s21_calc_suite(void) {

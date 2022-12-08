@@ -112,9 +112,9 @@ char *find_number(int *i, char *number, char *current_str) {
     size++;
     (*i)++;
   }
-  if (current_str[*i] == '.') {
+  if (current_str[*i] == '.' || current_str[*i] == ',') {
     number = realloc(number, size + 1);
-    number[size] = current_str[*i];
+    number[size] = '.';
     size++;
     (*i)++;
     while (current_str[*i] - '0' >= 0 && current_str[*i] - '0' <= 9) {
@@ -126,6 +126,7 @@ char *find_number(int *i, char *number, char *current_str) {
   }
   number = realloc(number, size + 1);
   number[size] = '\0';
+  printf("number = '%s'\n", number);
   return number;
 }
 

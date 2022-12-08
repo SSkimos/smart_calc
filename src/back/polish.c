@@ -14,81 +14,6 @@ int is_number(char *ptr) {
   return flag;
 }
 
-//double polish(char *str, double *x) {
-//  char *first_arg = NULL;
-//  char *second_arg = NULL;
-//  char *third_arg = NULL;
-//  double a = 0.0;
-//  double b = 0.0;
-//  double answer = 0.0;
-//  int flag = 0;
-//
-//  struct s21_stack buffer = make_stack();
-//  parser(&buffer, str);
-//  struct s21_stack stack = make_stack();
-//  revert_stack(&buffer, &stack);
-//
-//  while (peek(&stack)) {
-//    if (peek(&stack)) {
-//      first_arg = pop(&stack);
-//    }
-//    if (!peek(&stack)) {
-//      char *ptr = NULL;
-//      answer = strtold(first_arg, &ptr);
-//    } else {
-//      if (peek(&stack) && !second_arg) {
-//        second_arg = pop(&stack);
-//        // unary minus
-//        if (strcmp("-", second_arg) == 0) {
-//          char *ptr = NULL;
-//          a = strtold(first_arg, &ptr);
-//          answer = 0 - a;
-//          flag = 1;
-//          // unary minus
-//        } else if (strcmp("+", second_arg) == 0) {
-//          char *ptr = NULL;
-//          a = strtold(first_arg, &ptr);
-//          answer = a;
-//          flag = 1;
-//        }
-//        flag = 1;
-//      }
-//      if (is_number(second_arg)) {
-//        if (peek(&stack)) {
-//          // give operation
-//          third_arg = pop(&stack);
-////        printf("th = %s\n", third_arg);
-//        }
-//        char *ptr = NULL;
-//        if (strcmp("x", first_arg) != 0 && strcmp("x", second_arg) != 0) {
-//          a = strtold(first_arg, &ptr);
-//          b = strtold(second_arg, &ptr);
-//        } else {
-//          if (strcmp("x", first_arg)) {
-//            a = strtold(first_arg, &ptr);
-//            b = *x;
-//          } else {
-//            a = *x;
-//            b = strtold(second_arg, &ptr);
-//          }
-//        }
-//        answer = binary_calc(a, b, third_arg, answer, flag);
-//        flag = 0;
-//      } else {
-//        char *ptr = NULL;
-//        if (strcmp("x", first_arg) == 0 || strcmp("x", second_arg) == 0) {
-//          a = *x;
-//        } else {
-//          a = strtold(first_arg, &ptr);
-//        }
-//        answer = unary_calc(a, second_arg, answer, flag);
-//        flag = 0;
-//      }
-//    }
-//  }
-//  return answer;
-//}
-
 int is_unary_operand (char *c) {
   int flag = 0;
   if (strcmp("v", c) == 0) { flag = 1; }
@@ -167,8 +92,10 @@ double polish(char *str, double *x) {
             a = strtold(zero_arg, &ptr);
             b = *x;
           } else {
-            a = strtold(zero_arg, &ptr);
-            b = strtold(first_arg, &ptr);
+            a = strtod(zero_arg, NULL);
+            b = strtod(first_arg, NULL);
+            printf("a = %f, b = %f\n", a, b);
+            printf("a_s = %s, b_s = %s\n", zero_arg, first_arg);
           }
           answer = binary_calc(a, b, second_arg, answer, flag);
           flag = 0;
@@ -199,6 +126,8 @@ double polish(char *str, double *x) {
 double binary_calc(double a, double b, char *third_arg, double answer, int flag) {
   if (strcmp("+", third_arg) == 0) {
     answer = flag ? answer + a + b : answer + a;
+    printf("a = %f, b = %f\n", a, b);
+    printf("val = %f\n", answer);
   } else if (strcmp("^", third_arg) == 0) {
     answer = flag ? answer + pow(a, b) : pow(answer, a);
   } else if (strcmp("-", third_arg) == 0) {
