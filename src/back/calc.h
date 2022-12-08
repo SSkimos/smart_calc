@@ -39,6 +39,8 @@ void clear_stack(struct s21_stack *stack);
 
 // parser methods
 struct s21_stack *parser(struct s21_stack *output_stack, char *current_str);
+char *find_number(int *i, char *number, char *current_str);
+int check_brackets(char *str);
 
 //polish methods
 double polish(char *str, double *x);

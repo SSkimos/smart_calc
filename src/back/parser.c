@@ -1,8 +1,5 @@
 #include "calc.h"
 
-char *find_number(int *i, char *number, char *current_str);
-int check_brackets(char *str);
-
 void relocate_values(struct s21_stack *tmp_stack, struct s21_stack *output_stack, int priority) {
   char list[16] = "(+-*/%^cstCSTvlL";
   char *value = NULL;
@@ -39,8 +36,6 @@ struct s21_stack *parser(struct s21_stack *output_stack, char *current_str) {
   struct s21_stack tmp_stack = make_stack();  // temp operand stack
   int iterator = 0;
   char *value = NULL;
-
-  if (check_brackets(current_str)) { exit(0); }
 
   // main iter func
   for (int i = 0; i < strlen(current_str); i++) {
@@ -126,12 +121,10 @@ char *find_number(int *i, char *number, char *current_str) {
   }
   number = realloc(number, size + 1);
   number[size] = '\0';
-  printf("number = '%s'\n", number);
   return number;
 }
 
 int check_brackets(char *str) {
-  int error = 1;
   int sum = 0;
   for (int i = 0; i < (int)strlen(str); i++) {
     if (str[i] == ')') {

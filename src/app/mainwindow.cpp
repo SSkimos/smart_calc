@@ -1,5 +1,6 @@
 #include "mainwindow.h"
 #include "./ui_mainwindow.h"
+#include <QMessageBox>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -67,11 +68,13 @@ void MainWindow::aboba()
     QString x_val;
     x_val = ui->lineEdit_x_val->text();
     double x = ui->lineEdit_x_val->text().toDouble();
-
-    double value = polish(buffer, &x);
-
-    QString toStr = QString().asprintf("%0.6f", value);
-    ui->lineEdit_ans->setText(toStr);
+    if (check_brackets(buffer) != 0) {
+      QMessageBox::warning(this, "Внимание", "Выражение введено неправильно.");
+    } else {
+      double value = polish(buffer, &x);
+      QString toStr = QString().asprintf("%0.6f", value);
+      ui->lineEdit_ans->setText(toStr);
+    }
 }
 
 void MainWindow::clear()
@@ -83,6 +86,8 @@ void MainWindow::clear()
     QString second_label;
     second_label = "";
     ui->lineEdit_ans->setText(second_label);
+
+    ui->lineEdit_x_val->setText(second_label);
 }
 
 void MainWindow::add_value()
@@ -97,10 +102,31 @@ void MainWindow::add_value()
 
 void MainWindow::on_pushButton_build_clicked()
 {
-    connect(this, &MainWindow::signal, my_graph, &graph::slot);
-    emit signal(ui->lineEdit_str->text(), ui->lineEdit_x_min->text().toDouble(),
-                  ui->lineEdit_x_max->text().toDouble(), ui->lineEdit_y_min->text().toDouble(),
-                  ui->lineEdit_y_max->text().toDouble());
-    my_graph->show();
+  QString old_label;
+  old_label = ui->lineEdit_str->text();
+  QByteArray ba = old_label.toLatin1();
+  char *buffer = ba.data();
+
+  if (check_brackets(buffer) != 0) {
+    QMessageBox::warning(this, "Внимание", "Выражение введено неправильно.");
+    return;
+  }
+  if (ui->lineEdit_x_min->text().toDouble() >= ui->lineEdit_x_max->text().toDouble()
+      || (ui->lineEdit_x_min->text().toDouble() < -1e6) || (ui->lineEdit_x_max->text().toDouble() > 1e6)) {
+    QMessageBox::warning(this, "Внимание", "Область определения указана неправильно.");
+    return;
+  }
+  if (ui->lineEdit_y_min->text().toDouble() >= ui->lineEdit_y_max->text().toDouble()
+      || (ui->lineEdit_y_min->text().toDouble() < -1e6) || (ui->lineEdit_y_max->text().toDouble() > 1e6)) {
+    QMessageBox::warning(this, "Внимание", "Область значения указана неправильно.");
+    return;
+  }
+  delete my_graph;
+  my_graph = new graph();
+  connect(this, &MainWindow::signal, my_graph, &graph::slot);
+  emit signal(ui->lineEdit_str->text(), ui->lineEdit_x_min->text().toDouble(),
+              ui->lineEdit_x_max->text().toDouble(), ui->lineEdit_y_min->text().toDouble(),
+              ui->lineEdit_y_max->text().toDouble());
+  my_graph->show();
 }
 

@@ -94,8 +94,6 @@ double polish(char *str, double *x) {
           } else {
             a = strtod(zero_arg, NULL);
             b = strtod(first_arg, NULL);
-            printf("a = %f, b = %f\n", a, b);
-            printf("a_s = %s, b_s = %s\n", zero_arg, first_arg);
           }
           answer = binary_calc(a, b, second_arg, answer, flag);
           flag = 0;
@@ -126,8 +124,6 @@ double polish(char *str, double *x) {
 double binary_calc(double a, double b, char *third_arg, double answer, int flag) {
   if (strcmp("+", third_arg) == 0) {
     answer = flag ? answer + a + b : answer + a;
-    printf("a = %f, b = %f\n", a, b);
-    printf("val = %f\n", answer);
   } else if (strcmp("^", third_arg) == 0) {
     answer = flag ? answer + pow(a, b) : pow(answer, a);
   } else if (strcmp("-", third_arg) == 0) {
@@ -144,7 +140,6 @@ double binary_calc(double a, double b, char *third_arg, double answer, int flag)
 
 double unary_calc(double a, char *second_arg, double answer, int flag) {
   if (strcmp("v", second_arg) == 0) {
-    printf("test\n");
     answer = flag ? sqrt(a) : sqrt(answer);
   } else if (strcmp("l", second_arg) == 0) {
     if (fabs(a) - 1 < 1e-7 && answer == 0) {

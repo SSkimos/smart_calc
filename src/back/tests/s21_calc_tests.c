@@ -98,12 +98,8 @@ START_TEST(x_val) {
 }
 
 START_TEST(exceptions_test) {
-  char *str1 = "1000)";
-  double ans = polish(str1, NULL);
-  ck_assert_float_eq(0, ans);
-
   char *str2 = "1000+900";
-  ans = polish(str2, NULL);
+  double ans = polish(str2, NULL);
   ck_assert_float_eq(1900, ans);
 }
 
@@ -139,7 +135,6 @@ START_TEST(credit) {
 START_TEST(uniq_case) {
   char *str1 = "22+0.3";
   double ans = polish(str1, NULL);
-  printf("%f\n", ans);
   ck_assert_double_eq_tol(22.3, ans, 1e-7);
 }
 
