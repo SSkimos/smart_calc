@@ -163,7 +163,7 @@ Suite *s21_calc_suite(void) {
   tcase_add_test(tcase_core, one_arg);
 
   tcase_add_test(tcase_core, credit);
-//  tcase_add_test(tcase_core, uniq_case);
+  tcase_add_test(tcase_core, uniq_case);
 
   suite_add_tcase(suite, tcase_core);
 
