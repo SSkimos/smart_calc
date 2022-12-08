@@ -23,8 +23,10 @@ void graph::slot(QString str, double xmin, double xmax, double ymin, double ymax
 
     double X = ymin;
     for (X = xmin; X <= xmax; X += 0.001) {
+      if (!std::isnan(polish(a,X) && !std::isinf(polish(a,X)))) {
         x.push_back(X);
         y.push_back(polish(str1, &X));
+      }
     }
     ui->widget->addGraph();
     ui->widget->graph(0)->addData(x, y);
