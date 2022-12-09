@@ -77,6 +77,7 @@ double polish(char *str, double *x) {
   double b = 0.0;
   double answer = 0.0;
   int flag = 1;
+  int unary = 0;
 
   struct s21_stack buffer = make_stack();
   parser(&buffer, str);
@@ -86,6 +87,7 @@ double polish(char *str, double *x) {
   while (peek(&stack)) {
     if (peek(&stack) && flag) {
       zero_arg = pop(&stack);
+      printf("zero = %s\n", zero_arg);
       if (!peek(&stack)) {
         // one arg case
         char *ptr = NULL;
@@ -96,6 +98,7 @@ double polish(char *str, double *x) {
     }
     if (peek(&stack)) {
       first_arg = pop(&stack);
+      printf("first = %s\n", first_arg);
       if (is_binary_operand(first_arg) && flag) {
         // unary cases
         if (strcmp("-", first_arg) == 0) {
@@ -107,10 +110,12 @@ double polish(char *str, double *x) {
           a = strtold(zero_arg, &ptr);
           answer = a;
         }
+        unary = 1;
       }
     }
     if (peek(&stack)) {
       second_arg = pop(&stack);
+      printf("second = %s\n", second_arg);
     }
     if (flag) {
       if (second_arg) {
@@ -130,6 +135,10 @@ double polish(char *str, double *x) {
             b = strtod(first_arg, NULL);
           }
           answer = binary_calc(a, b, second_arg, answer, flag);
+          flag = 0;
+        } else if (is_unary_operand(second_arg) && unary) {
+          char *ptr = NULL;
+          answer = unary_calc(answer, second_arg, answer, flag);
           flag = 0;
         }
       } else if (is_unary_operand(first_arg)) {
@@ -152,6 +161,7 @@ double polish(char *str, double *x) {
       }
     }
   }
+  printf("answer = %f\n", answer);
   return answer;
 }
 

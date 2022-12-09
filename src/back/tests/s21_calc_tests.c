@@ -161,10 +161,10 @@ START_TEST(credit) {
 }
 
 START_TEST(uniq_case) {
-  char *str1 = "2+2+2+2";
-  double x = 3;
-  double ans = polish(str1, NULL);
-  ck_assert_double_eq_tol(8, ans, 1e-7);
+//  char *str1 = "sqrt(-25)";
+//  double x = 3;
+//  double ans = polish(str1, NULL);
+//  ck_assert_double_eq_tol(, ans, 1e-7);
 }
 
 Suite *s21_calc_suite(void) {
