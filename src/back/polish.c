@@ -89,7 +89,7 @@ double polish(char *str, double *x) {
       if (!peek(&stack)) {
         // one arg case
         char *ptr = NULL;
-        a = strtold(zero_arg, &ptr);
+        a = (strcmp("x", zero_arg)) ? strtold(zero_arg, &ptr) : *x;
         answer += a;
         return answer;
       }
@@ -131,19 +131,19 @@ double polish(char *str, double *x) {
         }
       } else if (is_unary_operand(first_arg)) {
         char *ptr = NULL;
-        a = (!x) ? strtold(zero_arg, &ptr) : *x;
+        a = (strcmp("x", zero_arg) ) ? strtold(zero_arg, &ptr) : *x;
         answer = unary_calc(a, first_arg, answer, flag);
         flag = 0;
       }
     } else {
       if (is_binary_operand(second_arg)) {
         char *ptr = NULL;
-        a = (!x) ? strtold(first_arg, &ptr) : *x;
+        a = (strcmp("x", zero_arg)) ? strtold(first_arg, &ptr) : *x;
         answer = binary_calc(a, b, second_arg, answer, flag);
         flag = 0;
       } else if (is_unary_operand(second_arg)) {
         char *ptr = NULL;
-        a = (!x) ? strtold(first_arg, &ptr) : *x;
+        a = (strcmp("x", zero_arg)) ? strtold(first_arg, &ptr) : *x;
         answer = unary_calc(a, second_arg, answer, flag);
         flag = 0;
       }

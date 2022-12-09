@@ -121,6 +121,17 @@ START_TEST(lg1) {
   ck_assert_float_eq(fabs(ans) - 1 < 1e-7, 0);
 }
 
+START_TEST(sqrt_case) {
+  char *str1 = "sqrt(25)";
+  double ans = polish(str1, NULL);
+  ck_assert_double_eq_tol(5, ans, 1e-7);
+
+  char *str2 = "sqrt(x)";
+  double x = 25;
+  ans = polish(str2, &x);
+  ck_assert_double_eq_tol(5, ans, 1e-7);
+}
+
 START_TEST(credit) {
   struct s21_credit_input input = {0};
   input.sum = 20000.0;
@@ -155,6 +166,7 @@ Suite *s21_calc_suite(void) {
   tcase_add_test(tcase_core, exceptions_test);
   tcase_add_test(tcase_core, lg1);
   tcase_add_test(tcase_core, log1);
+  tcase_add_test(tcase_core, sqrt_case);
   tcase_add_test(tcase_core, one_arg);
 
   tcase_add_test(tcase_core, credit);
