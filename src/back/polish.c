@@ -116,7 +116,10 @@ double polish(char *str, double *x) {
       if (second_arg) {
         if (is_binary_operand(second_arg)) {
           char *ptr = NULL;
-          if ((strcmp("x", zero_arg) == 0)) {
+          if ((strcmp("x", zero_arg) == 0) && (strcmp("x", first_arg) == 0)) {
+            a = *x;
+            b = *x;
+          } else if ((strcmp("x", zero_arg) == 0)) {
             a = *x;
             b = strtold(first_arg, &ptr);
           } else if ((strcmp("x", first_arg) == 0)) {
@@ -155,11 +158,11 @@ double polish(char *str, double *x) {
 double binary_calc(double a, double b, char *third_arg, double answer,
                    int flag) {
   if (strcmp("+", third_arg) == 0) {
-    answer = flag ? answer + a + b : answer + a;
+    answer = flag ? a + b : answer + a;
   } else if (strcmp("^", third_arg) == 0) {
     answer = flag ? answer + pow(a, b) : pow(answer, a);
   } else if (strcmp("-", third_arg) == 0) {
-    answer = flag ? answer + (a - b) : answer - a - b;
+    answer = flag ? (a - b) : answer - a;
   } else if (strcmp("*", third_arg) == 0) {
     answer = flag ? answer + (a * b) : answer * a;
   } else if (strcmp("/", third_arg) == 0) {

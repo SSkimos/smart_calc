@@ -19,7 +19,7 @@ void relocate_values(struct s21_stack *tmp_stack,
   } else {
     if (priority == FIRST_LEVEL) {
       i = 15;
-      j = 1;
+      j = 0;
     }
     if (priority == SECOND_LEVEL) {
       i = 15;
@@ -45,6 +45,7 @@ void relocate_values(struct s21_stack *tmp_stack,
   }
 }
 
+
 struct s21_stack *parser(struct s21_stack *output_stack, char *current_str) {
   struct s21_stack tmp_stack = make_stack();  // temp operand stack
   int iterator = 0;
@@ -53,7 +54,6 @@ struct s21_stack *parser(struct s21_stack *output_stack, char *current_str) {
   // main iter func
   for (int i = 0; i < strlen(current_str); i++) {
     if (current_str[i] - '0' >= 0 && current_str[i] - '0' <= 9) {
-      // TODO: add parser float number
       char *number = NULL;
       number = find_number(&i, number, current_str);
       if (number) {
@@ -194,6 +194,16 @@ int check_brackets(char *str) {
       sum += 1;
     } else if (str[i] == '(') {
       sum -= 1;
+    }
+  }
+  return sum;
+}
+
+int check_x(char *str) {
+  int sum = 0;
+  for (int i = 0; i < (int)strlen(str); i++) {
+    if (str[i] == 'x') {
+      sum++;
     }
   }
   return sum;

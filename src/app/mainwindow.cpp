@@ -66,6 +66,10 @@ void MainWindow::aboba() {
   double x = ui->lineEdit_x_val->text().toDouble();
   if (check_brackets(buffer) != 0) {
     QMessageBox::warning(this, "Внимание", "Выражение введено неправильно.");
+    return;
+  } else if (check_x(buffer) != 0 && !x) {
+    QMessageBox::warning(this, "Внимание", "Выражение введено неправильно.");
+    return;
   } else {
     double value = polish(buffer, &x);
     QString toStr = QString().asprintf("%0.6f", value);

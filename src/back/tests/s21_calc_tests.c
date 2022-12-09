@@ -45,12 +45,29 @@ START_TEST(primitive_operations) {
   char *str11 = "ln(10)";
   ans = polish(str11, NULL);
   ck_assert_float_eq(log10(10), ans);
+
+  char *str12 = "x+x";
+  double x = 3;
+  ans = polish(str12, &x);
+  ck_assert_double_eq_tol(6, ans, 1e-7);
+
+  char *str13 = "2-2-2";
+  ans = polish(str13, NULL);
+  ck_assert_double_eq_tol(-2, ans, 1e-7);
+
+  char *str14 = "2+2+2+2";
+  ans = polish(str14, NULL);
+  ck_assert_double_eq_tol(8, ans, 1e-7);
 }
 
 START_TEST(float_tests) {
   char *str1 = "1.5*2";
   double ans = polish(str1, NULL);
-  ck_assert_float_eq(3, ans);
+  ck_assert_double_eq_tol(3, ans, 1e-7);
+
+  char *str12 = "22+0.3";
+  ans = polish(str12, NULL);
+  ck_assert_double_eq_tol(22.3, ans, 1e-7);
 }
 
 START_TEST(u_minus) {
@@ -144,9 +161,10 @@ START_TEST(credit) {
 }
 
 START_TEST(uniq_case) {
-  char *str1 = "22+0.3";
+  char *str1 = "2+2+2+2";
+  double x = 3;
   double ans = polish(str1, NULL);
-  ck_assert_double_eq_tol(22.3, ans, 1e-7);
+  ck_assert_double_eq_tol(8, ans, 1e-7);
 }
 
 Suite *s21_calc_suite(void) {
