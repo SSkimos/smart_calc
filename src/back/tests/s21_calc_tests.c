@@ -173,11 +173,11 @@ START_TEST(uniq_case) {
 }
 
 START_TEST(invalid_cases) {
-  char *str1 = "sqrt(25) + 5";
+  char *str1 = "sqrt(25)+5";
   double ans = polish(str1, NULL);
   ck_assert_double_eq_tol(10, ans, 1e-7);
 
-  char *str2 = "sqrt(x) + 5";
+  char *str2 = "sqrt(x)+5";
   double a = 25;
   ans = polish(str2, &a);
   ck_assert_double_eq_tol(10, ans, 1e-7);
@@ -187,21 +187,21 @@ START_TEST(invalid_cases) {
   ans = polish(str3, &a);
   ck_assert_double_eq_tol(7288, ans, 1e-7);
 
-  char *str4 = "sqrt(20 + 5)";
+  char *str4 = "sqrt(20+5)";
   ans = polish(str4, NULL);
   ck_assert_double_eq_tol(5, ans, 1e-7);
 
-  char *str5 = "sqrt(x + 5)";
+  char *str5 = "sqrt(x+5)";
   a = 20;
   ans = polish(str5, &a);
   ck_assert_double_eq_tol(5, ans, 1e-7);
 
-  char *str6 = "ln(25 + 25 - 29)";
+  char *str6 = "ln(25+25-29)";
   a = 20;
   ans = polish(str6, &a);
   ck_assert_double_eq_tol(log(21), ans, 1e-7);
 
-  char *str7 = "125 + 600 + 45 + (5 * 5)";
+  char *str7 = "125+600+45+(5*5)";
   ans = polish(str7, NULL);
   ck_assert_double_eq_tol(770, ans, 1e-7);
 
@@ -219,7 +219,7 @@ START_TEST(invalid_cases) {
   ans = polish(str10, &a);
   ck_assert_double_eq_tol(sqrt(a-1+1), ans, 1e-7);
 
-  char *str11 = "10 mod 2";
+  char *str11 = "10mod2";
   ans = polish(str11, NULL);
   ck_assert_double_eq_tol(10 % 2, ans, 1e-7);
 
@@ -227,6 +227,13 @@ START_TEST(invalid_cases) {
   a = 0.5;
   ans = polish(str12, &a);
   ck_assert_double_eq_tol(atan(a), ans, 1e-7);
+}
+
+START_TEST(abobas) {
+  char *str1 = "ln(-x)/(-5)";
+  double a = -0.1;
+  double ans = polish(str1, &a);
+  ck_assert_double_eq_tol(log(0.1)/(-5), ans, 1e-7);
 }
 
 Suite *s21_calc_suite(void) {
@@ -255,6 +262,8 @@ Suite *s21_calc_suite(void) {
   tcase_add_test(tcase_core, iks);
 
   tcase_add_test(tcase_core, invalid_cases);
+
+//  tcase_add_test(tcase_core, abobas);
 
   suite_add_tcase(suite, tcase_core);
 

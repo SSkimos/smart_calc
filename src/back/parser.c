@@ -2,7 +2,7 @@
 
 void relocate_values(struct s21_stack *tmp_stack,
                      struct s21_stack *output_stack, int priority) {
-  char list[16] = "(+-*/%^cstCSTvlL";
+  char list[18] = "(+-PM*/%^cstCSTvlL";
   char *value = NULL;
   int i = 0;
   int j = 0;
@@ -18,20 +18,20 @@ void relocate_values(struct s21_stack *tmp_stack,
     }
   } else {
     if (priority == FIRST_LEVEL) {
-      i = 15;
+      i = 17;
       j = 0;
     }
     if (priority == SECOND_LEVEL) {
-      i = 15;
-      j = 2;
-    }
-    if (priority == THIRD_LEVEL) {
-      i = 15;
+      i = 17;
       j = 4;
     }
-    if (priority == FOURTH_LEVEL) {
-      i = 15;
+    if (priority == THIRD_LEVEL) {
+      i = 17;
       j = 6;
+    }
+    if (priority == FOURTH_LEVEL) {
+      i = 17;
+      j = 8;
     }
     for (; i > j; i--) {
       if (peek(tmp_stack)) {
@@ -69,11 +69,25 @@ struct s21_stack *parser(struct s21_stack *output_stack, char *current_str) {
     } else if (current_str[i] == ')') {
       relocate_values(&tmp_stack, output_stack, ZERO_LEVEL);
     } else if (current_str[i] == '+') {
-      relocate_values(&tmp_stack, output_stack, FIRST_LEVEL);
-      push(&tmp_stack, "+");
+      if (!is_number(&current_str[i - 1]) && current_str[i-1] != 'x' && current_str[i-1] != ')') {
+        relocate_values(&tmp_stack, output_stack, FIRST_LEVEL);
+        push(&tmp_stack, "P");
+      } else if (i == 0) {
+        push(&tmp_stack, "M");
+      } else {
+        relocate_values(&tmp_stack, output_stack, FIRST_LEVEL);
+        push(&tmp_stack, "+");
+      }
     } else if (current_str[i] == '-') {
-      relocate_values(&tmp_stack, output_stack, FIRST_LEVEL);
-      push(&tmp_stack, "-");
+      if (!is_number(&current_str[i - 1]) && current_str[i-1] != 'x' && current_str[i-1] != ')') {
+        relocate_values(&tmp_stack, output_stack, FIRST_LEVEL);
+        push(&tmp_stack, "M");
+      } else if (i == 0) {
+        push(&tmp_stack, "M");
+      } else {
+        relocate_values(&tmp_stack, output_stack, FIRST_LEVEL);
+        push(&tmp_stack, "-");
+      }
     } else if (current_str[i] == '*') {
       relocate_values(&tmp_stack, output_stack, SECOND_LEVEL);
       push(&tmp_stack, "*");

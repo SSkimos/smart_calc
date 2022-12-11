@@ -21,6 +21,8 @@ double polish(char *str, double *x) {
     if (peek(&stack) && flag) {
       zero_arg = pop(&stack);
       printf("zero = %s\n", zero_arg);
+
+      // если пусто, возвращаю его
       if (!peek(&stack)) {
         // one arg case
         char *ptr = NULL;
@@ -34,79 +36,78 @@ double polish(char *str, double *x) {
     if (peek(&stack)) {
       first_arg = pop(&stack);
       printf("first = %s\n", first_arg);
-      if (is_binary_operand(first_arg)) {
-        // unary cases
-        if (strcmp("-", first_arg) == 0) {
-          char *ptr = NULL;
-          a = (strcmp("x", zero_arg)) ? strtold(zero_arg, &ptr) : *x;
-          answer = 0 - a;
-        } else if (strcmp("+", first_arg) == 0 && flag) {
-          char *ptr = NULL;
-          a = (strcmp("x", zero_arg)) ? strtold(zero_arg, &ptr) : *x;
-          answer = a;
-        }
-      }
     }
 
-    if (!flag && is_number(first_arg) && is_binary_operand(peek(&stack))) {
-      printf("Я ЗАЕБАЛСЯ!\n");
-    }
-
-    // беру второе значение
-    if (peek(&stack) && !is_unary_operand(first_arg)) {
-      if (peek(&stack) && is_binary_operand(peek(&stack))) {
-        second_arg = pop(&stack);
-        printf("second = %s\n", second_arg);
-      } else if (peek(&stack) && !flag && !is_unary_operand(peek(&stack))) {
-        second_arg = pop(&stack);
-        printf("secsecond = %s\n", second_arg);
-      }
-    }
-
-    if (flag) {
-      printf("129\n");
-      if (second_arg) {
-        printf("131\n");
-        if (is_binary_operand(second_arg)) {
-          printf("133\n");
-          char *ptr = NULL;
-          if ((strcmp("x", zero_arg) == 0) && (strcmp("x", first_arg) == 0)) {
-            a = *x;
-            b = *x;
-          } else if ((strcmp("x", zero_arg) == 0)) {
-            a = *x;
-            b = strtold(first_arg, &ptr);
-          } else if ((strcmp("x", first_arg) == 0)) {
-            a = strtold(zero_arg, &ptr);
-            b = *x;
-          } else {
-            a = strtod(zero_arg, NULL);
-            b = strtod(first_arg, NULL);
-          }
-          answer = binary_calc(a, b, second_arg, answer, flag);
-          printf("149 answer = %f\n", answer);
-        }
-      } else if (is_unary_operand(first_arg)) {
-        printf("161\n");
-        char *ptr = NULL;
-        a = (strcmp("x", zero_arg)) ? strtold(zero_arg, &ptr) : *x;
-        answer = unary_calc(a, first_arg, answer, flag);
-        printf("165 answer = %f\n", answer);
-      }
-      flag = 0;
+    // если я нашел унарный оператор
+    if (!strcmp("M", first_arg) || !strcmp("P", first_arg)) {
+      printf("43 M or P here op here\n");
+      unary = strcmp("M", first_arg) ? 1 : -1;
+      // TODO: придумать как обработать унарный прикол
     } else {
-      if (is_unary_operand(first_arg)) {
-        char *ptr = NULL;
-        answer = unary_calc(answer, first_arg, answer, 0);
-        printf("172 answer = %f\n", answer);
-      } else if (is_binary_operand(second_arg)) {
-        char *ptr = NULL;
-        a = (strcmp("x", first_arg)) ? strtold(first_arg, &ptr) : *x;
-        answer = binary_calc(a, b, second_arg, answer, flag);
-        printf("177 answer = %f\n", answer);
+      printf("46 not unary op here\n");
+      // беру второе значение
+      if (peek(&stack)) {
+        if (peek(&stack)) {
+          second_arg = pop(&stack);
+          printf("second = %s\n", second_arg);
+        }
+      }
+
+      if (flag) {
+        printf("first op here 56\n");
+        if (second_arg) {
+          printf("58 second arg\n");
+          if (is_binary_operand(second_arg)) {
+            printf("60\n");
+            char *ptr = NULL;
+            if ((strcmp("x", zero_arg) == 0) && (strcmp("x", first_arg) == 0)) {
+              a = *x;
+              b = *x;
+            } else if ((strcmp("x", zero_arg) == 0)) {
+              a = *x;
+              b = strtold(first_arg, &ptr);
+            } else if ((strcmp("x", first_arg) == 0)) {
+              a = strtold(zero_arg, &ptr);
+              b = *x;
+            } else {
+              a = strtod(zero_arg, NULL);
+              b = strtod(first_arg, NULL);
+            }
+            answer = binary_calc(a, b, second_arg, answer, flag);
+            printf("76 answer = %f\n", answer);
+          }
+          unary = 0;
+        } else if (is_unary_operand(first_arg)) {
+          printf("80 uanry operand\n");
+          char *ptr = NULL;
+          a = (strcmp("x", zero_arg)) ? strtold(zero_arg, &ptr) : *x;
+          answer = unary_calc(a, first_arg, answer, flag);
+          printf("82 answer = %f\n", answer);
+          unary = 0;
+        }
+        flag = 0;
+      } else {
+        printf("second+ op here 89\n");
+        if (is_unary_operand(first_arg)) {
+          char *ptr = NULL;
+          answer = unary_calc(answer, first_arg, answer, 0);
+          printf("90 answer = %f\n", answer);
+          unary = 0;
+        } else if (is_binary_operand(second_arg)) {
+          char *ptr = NULL;
+          a = (strcmp("x", first_arg)) ? strtold(first_arg, &ptr) : *x;
+          answer = binary_calc(a, b, second_arg, answer, flag);
+          printf("96 answer = %f\n", answer);
+          unary = 0;
+        }
       }
     }
-    printf("ite1 done\n");
+  }
+  if (unary != 0) {
+    char *ptr = NULL;
+    a = (strcmp("x", zero_arg)) ? strtold(zero_arg, &ptr) : *x;
+    answer += a;
+    answer *= unary;
   }
   printf("answer = %f\n", answer);
   printf("===========\n");
