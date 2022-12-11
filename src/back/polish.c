@@ -87,7 +87,6 @@ double polish(char *str, double *x) {
   while (peek(&stack)) {
     if (peek(&stack) && flag) {
       zero_arg = pop(&stack);
-      printf("zero = %s\n", zero_arg);
       if (!peek(&stack)) {
         // one arg case
         char *ptr = NULL;
@@ -98,7 +97,6 @@ double polish(char *str, double *x) {
     }
     if (peek(&stack)) {
       first_arg = pop(&stack);
-      printf("first = %s\n", first_arg);
       if (is_binary_operand(first_arg) && flag) {
         // unary cases
         if (strcmp("-", first_arg) == 0) {
@@ -115,7 +113,6 @@ double polish(char *str, double *x) {
     }
     if (peek(&stack)) {
       second_arg = pop(&stack);
-      printf("second = %s\n", second_arg);
     }
     if (flag) {
       if (second_arg) {
@@ -161,7 +158,6 @@ double polish(char *str, double *x) {
       }
     }
   }
-  printf("answer = %f\n", answer);
   return answer;
 }
 
@@ -187,18 +183,8 @@ double unary_calc(double a, char *second_arg, double answer, int flag) {
   if (strcmp("v", second_arg) == 0) {
     answer = flag ? sqrt(a) : sqrt(answer);
   } else if (strcmp("l", second_arg) == 0) {
-    if (fabs(a) - 1 < 1e-7 && answer == 0) {
-      return NAN;
-    } else if (fabs(answer) - 1 < 1e-7 && a == 0) {
-      return NAN;
-    }
     answer = flag ? log(a) : log(answer);
   } else if (strcmp("L", second_arg) == 0) {
-    if (fabs(a) - 1 < 1e-7 && answer == 0) {
-      return NAN;
-    } else if (fabs(answer) - 1 < 1e-7 && a == 0) {
-      return NAN;
-    }
     answer = flag ? log10(a) : log10(answer);
   } else if (strcmp("s", second_arg) == 0) {
     answer = flag ? sin(a) : sin(answer);

@@ -126,18 +126,6 @@ START_TEST(one_arg) {
   ck_assert_float_eq(200, ans);
 }
 
-START_TEST(log1) {
-  char *str1 = "log(1)";
-  double ans = polish(str1, NULL);
-  ck_assert_float_eq(fabs(ans) - 1 < 1e-7, 0);
-}
-
-START_TEST(lg1) {
-  char *str1 = "log(1)";
-  double ans = polish(str1, NULL);
-  ck_assert_float_eq(fabs(ans) - 1 < 1e-7, 0);
-}
-
 START_TEST(sqrt_case) {
   char *str1 = "sqrt(25)";
   double ans = polish(str1, NULL);
@@ -161,10 +149,9 @@ START_TEST(credit) {
 }
 
 START_TEST(uniq_case) {
-//  char *str1 = "sqrt(-25)";
-//  double x = 3;
-//  double ans = polish(str1, NULL);
-//  ck_assert_double_eq_tol(, ans, 1e-7);
+  char *str1 = "ln(10)";
+  double ans = polish(str1, NULL);
+  ck_assert_double_eq_tol(1, ans, 1e-7);
 }
 
 Suite *s21_calc_suite(void) {
@@ -182,8 +169,6 @@ Suite *s21_calc_suite(void) {
   tcase_add_test(tcase_core, x_val);
 
   tcase_add_test(tcase_core, exceptions_test);
-  tcase_add_test(tcase_core, lg1);
-  tcase_add_test(tcase_core, log1);
   tcase_add_test(tcase_core, sqrt_case);
   tcase_add_test(tcase_core, one_arg);
 
