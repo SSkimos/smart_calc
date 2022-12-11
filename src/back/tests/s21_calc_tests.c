@@ -40,11 +40,11 @@ START_TEST(primitive_operations) {
 
   char *str10 = "log(10)";
   ans = polish(str10, NULL);
-  ck_assert_float_eq(log(10), ans);
+  ck_assert_float_eq(log10(10), ans);
 
   char *str11 = "ln(10)";
   ans = polish(str11, NULL);
-  ck_assert_float_eq(log10(10), ans);
+  ck_assert_float_eq(log(10), ans);
 
   char *str12 = "x+x";
   double x = 3;
@@ -169,7 +169,7 @@ START_TEST(credit) {
 START_TEST(uniq_case) {
   char *str1 = "ln(10)";
   double ans = polish(str1, NULL);
-  ck_assert_double_eq_tol(1, ans, 1e-7);
+  ck_assert_double_eq_tol(log(10), ans, 1e-7);
 }
 
 START_TEST(invalid_cases) {
@@ -177,9 +177,33 @@ START_TEST(invalid_cases) {
   double ans = polish(str1, NULL);
   ck_assert_double_eq_tol(10, ans, 1e-7);
 
-  char *str2 = "sqrt(25) + 5";
-  ans = polish(str2, NULL);
+  char *str2 = "sqrt(x) + 5";
+  double a = 25;
+  ans = polish(str2, &a);
   ck_assert_double_eq_tol(10, ans, 1e-7);
+
+  char *str3 = "800/2*16+888";
+  a = 25;
+  ans = polish(str3, &a);
+  ck_assert_double_eq_tol(7288, ans, 1e-7);
+
+  char *str4 = "sqrt(20 + 5)";
+  ans = polish(str4, NULL);
+  ck_assert_double_eq_tol(5, ans, 1e-7);
+
+  char *str5 = "sqrt(x + 5)";
+  a = 20;
+  ans = polish(str5, &a);
+  ck_assert_double_eq_tol(5, ans, 1e-7);
+
+  char *str6 = "ln(25 + 25 - 29)";
+  a = 20;
+  ans = polish(str6, &a);
+  ck_assert_double_eq_tol(log(21), ans, 1e-7);
+
+  char *str7 = "125 + 600 + 45 + (5 * 5)";
+  ans = polish(str7, NULL);
+  ck_assert_double_eq_tol(770, ans, 1e-7);
 }
 
 Suite *s21_calc_suite(void) {
