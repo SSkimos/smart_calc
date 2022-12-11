@@ -137,6 +137,24 @@ START_TEST(sqrt_case) {
   ck_assert_double_eq_tol(5, ans, 1e-7);
 }
 
+START_TEST(brackets) {
+  char *str1 = "sin(1)";
+  int ans = check_brackets(str1);
+  ck_assert_double_eq_tol(0, ans, 1e-7);
+}
+
+START_TEST(number) {
+  char *str1 = "10";
+  int ans = is_number(str1);
+  ck_assert_double_eq_tol(1, ans, 1e-7);
+}
+
+START_TEST(iks) {
+  char *str1 = "x";
+  int ans = check_x(str1);
+  ck_assert_double_eq_tol(1, ans, 1e-7);
+}
+
 START_TEST(credit) {
   struct s21_credit_input input = {0};
   input.sum = 20000.0;
@@ -152,6 +170,16 @@ START_TEST(uniq_case) {
   char *str1 = "ln(10)";
   double ans = polish(str1, NULL);
   ck_assert_double_eq_tol(1, ans, 1e-7);
+}
+
+START_TEST(invalid_cases) {
+  char *str1 = "sqrt(25) + 5";
+  double ans = polish(str1, NULL);
+  ck_assert_double_eq_tol(10, ans, 1e-7);
+
+  char *str2 = "sqrt(25) + 5";
+  ans = polish(str2, NULL);
+  ck_assert_double_eq_tol(10, ans, 1e-7);
 }
 
 Suite *s21_calc_suite(void) {
@@ -174,6 +202,12 @@ Suite *s21_calc_suite(void) {
 
   tcase_add_test(tcase_core, credit);
   tcase_add_test(tcase_core, uniq_case);
+
+  tcase_add_test(tcase_core, brackets);
+  tcase_add_test(tcase_core, number);
+  tcase_add_test(tcase_core, iks);
+
+  tcase_add_test(tcase_core, invalid_cases);
 
   suite_add_tcase(suite, tcase_core);
 

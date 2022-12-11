@@ -2,9 +2,6 @@
 
 void relocate_values(struct s21_stack *tmp_stack,
                      struct s21_stack *output_stack, int priority) {
-  if (!tmp_stack) {
-    return;
-  }
   char list[16] = "(+-*/%^cstCSTvlL";
   char *value = NULL;
   int i = 0;

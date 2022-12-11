@@ -1,6 +1,6 @@
 CC = gcc
 WARNING =
-SANITIZE = -g -fsanitize=address
+SANITIZE = #-g -fsanitize=address
 CFLAGS = -std=c11 -pedantic $(WARNING) # -g -fsanitize=address
 LFLAGS ?= $(shell pkg-config --cflags --libs check)
 INC_CHECK ?= $(shell pkg-config --cflags check)

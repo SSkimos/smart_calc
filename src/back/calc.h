@@ -42,6 +42,7 @@ struct s21_stack *parser(struct s21_stack *output_stack, char *current_str);
 char *find_number(int *i, char *number, char *current_str);
 int check_brackets(char *str);
 int check_x(char *str);
+int is_number(char *ptr);
 
 // polish methods
 double polish(char *str, double *x);

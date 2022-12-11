@@ -85,8 +85,11 @@ double polish(char *str, double *x) {
   revert_stack(&buffer, &stack);
 
   while (peek(&stack)) {
+
+    // беру нулевое значение и проверяю что дальше не пусто
     if (peek(&stack) && flag) {
       zero_arg = pop(&stack);
+      printf("zero = %s\n", zero_arg);
       if (!peek(&stack)) {
         // one arg case
         char *ptr = NULL;
@@ -95,8 +98,11 @@ double polish(char *str, double *x) {
         return answer;
       }
     }
+
+    // беру первое значение и проверяю на унарный оператор
     if (peek(&stack)) {
       first_arg = pop(&stack);
+      printf("first = %s\n", first_arg);
       if (is_binary_operand(first_arg) && flag) {
         // unary cases
         if (strcmp("-", first_arg) == 0) {
@@ -111,9 +117,14 @@ double polish(char *str, double *x) {
         unary = 1;
       }
     }
-    if (peek(&stack)) {
+
+    // беру второе значение
+    if (peek(&stack) && is_binary_operand(peek(&stack))) {
       second_arg = pop(&stack);
+      printf("second = %s\n", second_arg);
     }
+
+
     if (flag) {
       if (second_arg) {
         if (is_binary_operand(second_arg)) {
@@ -133,11 +144,13 @@ double polish(char *str, double *x) {
           }
           answer = binary_calc(a, b, second_arg, answer, flag);
           flag = 0;
-        } else if (is_unary_operand(second_arg) && unary) {
+        } else if (is_unary_operand(first_arg) && !unary) {
+          printf("answer = %f\n", answer);
           char *ptr = NULL;
-          answer = unary_calc(answer, second_arg, answer, flag);
+          answer = a = strtod(zero_arg, NULL);
+          answer = unary_calc(answer, first_arg, 0, flag);
           flag = 0;
-        }
+        } //TODO: добавить такой же кейс но с другим аргом
       } else if (is_unary_operand(first_arg)) {
         char *ptr = NULL;
         a = (strcmp("x", zero_arg) ) ? strtold(zero_arg, &ptr) : *x;
@@ -151,6 +164,7 @@ double polish(char *str, double *x) {
         answer = binary_calc(a, b, second_arg, answer, flag);
         flag = 0;
       } else if (is_unary_operand(second_arg)) {
+        printf("here\n");
         char *ptr = NULL;
         a = (strcmp("x", zero_arg)) ? strtold(first_arg, &ptr) : *x;
         answer = unary_calc(a, second_arg, answer, flag);
@@ -158,11 +172,14 @@ double polish(char *str, double *x) {
       }
     }
   }
+  printf("answer = %f\n", answer);
+  printf("===========\n");
   return answer;
 }
 
 double binary_calc(double a, double b, char *third_arg, double answer,
                    int flag) {
+  printf("binary\n");
   if (strcmp("+", third_arg) == 0) {
     answer = flag ? a + b : answer + a;
   } else if (strcmp("^", third_arg) == 0) {
@@ -180,6 +197,7 @@ double binary_calc(double a, double b, char *third_arg, double answer,
 }
 
 double unary_calc(double a, char *second_arg, double answer, int flag) {
+  printf("unary\n");
   if (strcmp("v", second_arg) == 0) {
     answer = flag ? sqrt(a) : sqrt(answer);
   } else if (strcmp("l", second_arg) == 0) {

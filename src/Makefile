@@ -5,13 +5,13 @@ SRC_T=back/tests/s21_calc_tests.c
 OBJ_T=back/tests/s21_calc_tests.o
 CFLAGS=--coverage $(shell pkg-config --cflags --libs check)
 
-all: test install
+all: tests install
 
-gcov_report: test
+gcov_report: tests
 	lcov -t "otchet" -o otchet.info -c -d ./back
 	genhtml -o report otchet.info
 
-test: lib.a $(OBJ_T) $(OBJ)
+tests: lib.a $(OBJ_T) $(OBJ)
 	$(CC) $(CFLAGS) lib.a $(OBJ_T) $(OBJ) $(TESTFLAGS) -o test
 	./test
 
