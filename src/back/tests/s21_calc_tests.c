@@ -204,6 +204,29 @@ START_TEST(invalid_cases) {
   char *str7 = "125 + 600 + 45 + (5 * 5)";
   ans = polish(str7, NULL);
   ck_assert_double_eq_tol(770, ans, 1e-7);
+
+  char *str8 = "ln(-x)/(-5)";
+  a = -0.1;
+  ans = polish(str8, &a);
+  ck_assert_double_eq_tol(log(0.1)/(-5), ans, 1e-7);
+
+  char *str9 = "sqrt(-10-2+15)";
+  ans = polish(str9, NULL);
+  ck_assert_double_eq_tol(sqrt(-10 - 2 + 15), ans, 1e-7);
+
+  char *str10 = "sqrt(x-1+1)";
+  a = 12.3;
+  ans = polish(str10, &a);
+  ck_assert_double_eq_tol(sqrt(a-1+1), ans, 1e-7);
+
+  char *str11 = "10 mod 2";
+  ans = polish(str11, NULL);
+  ck_assert_double_eq_tol(10 % 2, ans, 1e-7);
+
+  char *str12 = "atan(x)";
+  a = 0.5;
+  ans = polish(str12, &a);
+  ck_assert_double_eq_tol(atan(a), ans, 1e-7);
 }
 
 Suite *s21_calc_suite(void) {
