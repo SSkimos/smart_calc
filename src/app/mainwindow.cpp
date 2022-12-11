@@ -11,6 +11,8 @@ MainWindow::MainWindow(QWidget *parent)
   delete my_graph;
   my_graph = new graph();
 
+  ui->lineEdit_str->setReadOnly(true);
+
   connect(ui->pushButton_0, SIGNAL(clicked()), this, SLOT(add_value()));
   connect(ui->pushButton_1, SIGNAL(clicked()), this, SLOT(add_value()));
   connect(ui->pushButton_2, SIGNAL(clicked()), this, SLOT(add_value()));

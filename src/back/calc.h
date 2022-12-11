@@ -49,7 +49,7 @@ double polish(char *str, double *x);
 double binary_calc(double a, double b, char *third_arg, double answer,
                    int flag);
 double unary_calc(double a, char *second_arg, double answer, int flag);
-void revert_stack(struct s21_stack *old, struct s21_stack *new);
+void revert_stack(struct s21_stack *old, struct s21_stack *new_);
 int is_unary_operand(char *c);
 int is_binary_operand(char *c);
 
