@@ -1,5 +1,14 @@
 #include "calc.h"
 
+char *s21_strdup(char *old_str) {
+  char *new_str = NULL;
+  if (old_str) {
+    new_str = malloc((int)strlen(old_str));
+    strcpy(new_str, old_str);
+  }
+  return new_str;
+}
+
 void push(struct s21_stack *stack, char *value) {
   if (stack->size == 0) {
     stack->data = calloc(1, sizeof(char *));
@@ -15,7 +24,7 @@ void push(struct s21_stack *stack, char *value) {
 char *pop(struct s21_stack *stack) {
   char *elem = NULL;
   if (stack->size > 0) {
-    elem = strdup(stack->data[stack->size - 1]);
+    elem = s21_strdup(stack->data[stack->size - 1]);
     free((stack->data[stack->size - 1]));
     stack->size--;
   }
@@ -25,7 +34,7 @@ char *pop(struct s21_stack *stack) {
 char *peek(struct s21_stack *stack) {
   char *elem = NULL;
   if (stack->size > 0) {
-    elem = strdup(stack->data[stack->size - 1]);
+    elem = s21_strdup(stack->data[stack->size - 1]);
   }
   return elem;
 }

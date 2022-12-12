@@ -173,18 +173,18 @@ START_TEST(uniq_case) {
 }
 
 START_TEST(invalid_cases) {
-//  char *str1 = "sqrt(25)+5";
-//  double ans = polish(str1, NULL);
-//  ck_assert_double_eq_tol(10, ans, 1e-7);
-//
-//  char *str2 = "sqrt(x)+5";
-//  double a = 25;
-//  ans = polish(str2, &a);
-//  ck_assert_double_eq_tol(10, ans, 1e-7);
+  char *str1 = "sqrt(25)+5";
+  double ans = polish(str1, NULL);
+  ck_assert_double_eq_tol(10, ans, 1e-7);
+
+  char *str2 = "sqrt(x)+5";
+  double a = 25;
+  ans = polish(str2, &a);
+  ck_assert_double_eq_tol(10, ans, 1e-7);
 
   char *str3 = "800/2*16+888";
-  double a = 25;
-  double ans = polish(str3, &a);
+  a = 25;
+  ans = polish(str3, &a);
   ck_assert_double_eq_tol(7288, ans, 1e-7);
 
   char *str4 = "sqrt(20+5)";

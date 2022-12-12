@@ -45,9 +45,8 @@ void relocate_values(struct s21_stack *tmp_stack,
   }
 }
 
-
 struct s21_stack *parser(struct s21_stack *output_stack, char *current_str) {
-  struct s21_stack tmp_stack = make_stack();  // temp operand stack
+  struct s21_stack tmp_stack = make_stack(); // temp operand stack
   int iterator = 0;
   char *value = NULL;
 
@@ -69,7 +68,8 @@ struct s21_stack *parser(struct s21_stack *output_stack, char *current_str) {
     } else if (current_str[i] == ')') {
       relocate_values(&tmp_stack, output_stack, ZERO_LEVEL);
     } else if (current_str[i] == '+') {
-      if (!is_number(&current_str[i - 1]) && current_str[i-1] != 'x' && current_str[i-1] != ')') {
+      if (!is_number(&current_str[i - 1]) && current_str[i - 1] != 'x' &&
+          current_str[i - 1] != ')') {
         relocate_values(&tmp_stack, output_stack, FIRST_LEVEL);
         push(&tmp_stack, "P");
       } else if (i == 0) {
@@ -79,7 +79,8 @@ struct s21_stack *parser(struct s21_stack *output_stack, char *current_str) {
         push(&tmp_stack, "+");
       }
     } else if (current_str[i] == '-') {
-      if (!is_number(&current_str[i - 1]) && current_str[i-1] != 'x' && current_str[i-1] != ')') {
+      if (!is_number(&current_str[i - 1]) && current_str[i - 1] != 'x' &&
+          current_str[i - 1] != ')') {
         relocate_values(&tmp_stack, output_stack, FIRST_LEVEL);
         push(&tmp_stack, "M");
       } else if (i == 0) {
@@ -101,37 +102,37 @@ struct s21_stack *parser(struct s21_stack *output_stack, char *current_str) {
       relocate_values(&tmp_stack, output_stack, THIRD_LEVEL);
       push(&tmp_stack, "^");
     } else if (current_str[i] == 'c' && current_str[i + 1] == 'o' &&
-        current_str[i + 2] == 's') {
+               current_str[i + 2] == 's') {
       i += 2;
       relocate_values(&tmp_stack, output_stack, FOURTH_LEVEL);
       push(&tmp_stack, "c");
     } else if (current_str[i] == 's' && current_str[i + 1] == 'i' &&
-        current_str[i + 2] == 'n') {
+               current_str[i + 2] == 'n') {
       i += 2;
       relocate_values(&tmp_stack, output_stack, FOURTH_LEVEL);
       push(&tmp_stack, "s");
     } else if (current_str[i] == 't' && current_str[i + 1] == 'a' &&
-        current_str[i + 2] == 'n') {
+               current_str[i + 2] == 'n') {
       i += 2;
       relocate_values(&tmp_stack, output_stack, FOURTH_LEVEL);
       push(&tmp_stack, "t");
     } else if (current_str[i] == 'a' && current_str[i + 1] == 'c' &&
-        current_str[i + 2] == 'o' && current_str[i + 3] == 's') {
+               current_str[i + 2] == 'o' && current_str[i + 3] == 's') {
       i += 3;
       relocate_values(&tmp_stack, output_stack, FOURTH_LEVEL);
       push(&tmp_stack, "C");
     } else if (current_str[i] == 'a' && current_str[i + 1] == 's' &&
-        current_str[i + 2] == 'i' && current_str[i + 3] == 'n') {
+               current_str[i + 2] == 'i' && current_str[i + 3] == 'n') {
       i += 3;
       relocate_values(&tmp_stack, output_stack, FOURTH_LEVEL);
       push(&tmp_stack, "S");
     } else if (current_str[i] == 'a' && current_str[i + 1] == 't' &&
-        current_str[i + 2] == 'a' && current_str[i + 3] == 'n') {
+               current_str[i + 2] == 'a' && current_str[i + 3] == 'n') {
       i += 3;
       relocate_values(&tmp_stack, output_stack, FOURTH_LEVEL);
       push(&tmp_stack, "T");
     } else if (current_str[i] == 's' && current_str[i + 1] == 'q' &&
-        current_str[i + 2] == 'r' && current_str[i + 3] == 't') {
+               current_str[i + 2] == 'r' && current_str[i + 3] == 't') {
       i += 3;
       relocate_values(&tmp_stack, output_stack, FOURTH_LEVEL);
       push(&tmp_stack, "v");
@@ -140,7 +141,7 @@ struct s21_stack *parser(struct s21_stack *output_stack, char *current_str) {
       relocate_values(&tmp_stack, output_stack, FOURTH_LEVEL);
       push(&tmp_stack, "L");
     } else if (current_str[i] == 'l' && current_str[i + 1] == 'o' &&
-        current_str[i + 2] == 'g') {
+               current_str[i + 2] == 'g') {
       i += 2;
       relocate_values(&tmp_stack, output_stack, FOURTH_LEVEL);
       push(&tmp_stack, "l");
